@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Element 自动导入配置文件忽略
+auto-imports.d.ts
+components.d.ts
