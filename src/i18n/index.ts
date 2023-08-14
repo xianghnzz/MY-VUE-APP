@@ -17,13 +17,13 @@ const messages = {
 };
 
 export const i18n = createI18n({
-    globalInjection: true,
+    globalInjection: true, // 全局注册可以直接使用 $t(),$tc()
     legacy: false,
     silentTranslationWarn: true,
     missingWarn: false,
     silentFallbackWarn: true,
     fallbackWarn: false,
-    locale: themeConfig.value.globalI18n, // 采用全局参数配置初始化语言 项目中有`zh-cn`、`en`两种
-    fallbackLocale: zhCnLocale.name,
-    messages
+    locale: themeConfig.value.globalI18n, // 用于切换当前系统语言
+    fallbackLocale: zhCnLocale.name, // 当language 不是 zh-cn,en当中的其中一种,使用zh-cn
+    messages // 自定义语言包
 });
