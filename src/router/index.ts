@@ -11,6 +11,10 @@ const constantRoutes = [
             alwaysShow: false
         },
         children: []
+    },
+    {
+        path: '/login',
+        component: () => import('@/view/login/index.vue')
     }
 ];
 const router = createRouter({
