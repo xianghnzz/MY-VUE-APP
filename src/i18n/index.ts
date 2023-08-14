@@ -8,11 +8,11 @@ import { themeConfig } from '@/config';
 const messages = {
     [zhCnLocale.name]: {
         ...zhCnLocale,
-        plm: { ...nextZhCn }
+        system: { ...nextZhCn }
     },
     [enLocale.name]: {
         ...enLocale,
-        plm: { ...nextEn }
+        system: { ...nextEn }
     }
 };
 
