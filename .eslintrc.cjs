@@ -30,6 +30,7 @@ module.exports = {
     },
     plugins: ['@typescript-eslint', 'vue'],
     rules: {
+        'vue/multi-word-component-names': 'off', // 不使用驼峰命名
         'vue/html-indent': ['error', 4], // vue html模板空四格,
         // 'vue/first-attribute-linebreak': [
         //     2,
