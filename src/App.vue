@@ -16,7 +16,7 @@ watchEffect(changeLanguage);
 
 <template>
     <el-config-provider size="default" :z-index="10" :locale="localeLang">
-        <ElButton type="primary">{{ $t('system.common.confirm') }}</ElButton>
+        <router-view />
     </el-config-provider>
 </template>
 
