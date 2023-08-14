@@ -1,4 +1,4 @@
-import { setLanguage } from '../utils/cache/localStorage';
+import { setLanguage } from '@/utils/cache/localStorage';
 
 const store = createPinia();
 

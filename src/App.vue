@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { themeConfig } from './config';
+import { themeConfig } from '@/config';
 import { useI18n } from 'vue-i18n';
-import { useAppStoreHook } from './store/app';
+import { useAppStoreHook } from '@/store/app';
 
 const appStore = useAppStoreHook();
 const { messages, locale }: any = useI18n();
@@ -15,7 +15,7 @@ watchEffect(changeLanguage);
 </script>
 
 <template>
-    <el-config-provider size="default" z-index="10" :locale="localeLang">
+    <el-config-provider size="default" :z-index="10" :locale="localeLang">
         <ElButton type="primary">{{ $t('plm.common.confirm') }}</ElButton>
     </el-config-provider>
 </template>

@@ -1,4 +1,4 @@
-import { useAppStoreHook } from '../store/app';
+import { useAppStoreHook } from '@/store/app';
 
 const appStore = useAppStoreHook();
 appStore.toggleLanguage(appStore.language);

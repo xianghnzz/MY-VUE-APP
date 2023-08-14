@@ -3,7 +3,7 @@ import enLocale from 'element-plus/dist/locale/en.mjs';
 import nextZhCn from './lang/zh-cn';
 import nextEn from './lang/en';
 import { createI18n } from 'vue-i18n';
-import { themeConfig } from '../config';
+import { themeConfig } from '@/config';
 
 const messages = {
     [zhCnLocale.name]: {
