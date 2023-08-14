@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
 const currentPage1: Ref = ref(1);
 </script>
 
 <template>
-    <el-config-provider size="default" z-index="10">
+    <el-config-provider size="default" z-index="10" :locale="zhCn">
         <ElButton type="primary">按钮</ElButton>
         <el-pagination
             v-model:current-page="currentPage1"
