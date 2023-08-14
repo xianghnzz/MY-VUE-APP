@@ -3,6 +3,7 @@ import enLocale from 'element-plus/dist/locale/en.mjs';
 import nextZhCn from './lang/zh-cn';
 import nextEn from './lang/en';
 import { createI18n } from 'vue-i18n';
+import { themeConfig } from '../config';
 
 const messages = {
     [zhCnLocale.name]: {
@@ -16,13 +17,13 @@ const messages = {
 };
 
 export const i18n = createI18n({
-    // globalInjection: true,
-    // legacy: false,
-    // silentTranslationWarn: true,
-    // missingWarn: false,
-    // silentFallbackWarn: true,
-    // fallbackWarn: false,
-    // locale: themeConfig.value.globalI18n, // 采用全局参数配置初始化语言 项目中有`zh-cn`、`en`两种
-    // fallbackLocale: zhCnLocale.name,
+    globalInjection: true,
+    legacy: false,
+    silentTranslationWarn: true,
+    missingWarn: false,
+    silentFallbackWarn: true,
+    fallbackWarn: false,
+    locale: themeConfig.value.globalI18n, // 采用全局参数配置初始化语言 项目中有`zh-cn`、`en`两种
+    fallbackLocale: zhCnLocale.name,
     messages
 });

@@ -5,7 +5,7 @@ const currentPage1: Ref = ref(1);
 
 <template>
     <el-config-provider size="default" z-index="10" :locale="zhCn">
-        <ElButton type="primary">按钮</ElButton>
+        <ElButton type="primary">{{ $t('plm.common.confirm') }}</ElButton>
         <el-pagination
             v-model:current-page="currentPage1"
             :page-size="100"
