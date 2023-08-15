@@ -1,4 +1,6 @@
 import { defineConfig } from 'vite';
+import Icons from 'unplugin-icons/vite';
+import IconsResolver from 'unplugin-icons/resolver';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
@@ -18,7 +20,12 @@ export default defineConfig({
                     axios: [['default', 'axios']]
                 }
             ],
-            resolvers: [ElementPlusResolver()],
+            resolvers: [
+                ElementPlusResolver(),
+                IconsResolver({
+                    prefix: 'i'
+                })
+            ],
             eslintrc: {
                 enabled: false, // 只打开一次即可，生成.eslintrc-auto-import.json文件后关闭，避免每次都生成文件
                 filepath: './.eslintrc-auto-import.json',
@@ -26,7 +33,16 @@ export default defineConfig({
             }
         }),
         Components({
-            resolvers: [ElementPlusResolver()]
+            resolvers: [
+                ElementPlusResolver(),
+                IconsResolver({
+                    prefix: 'i',
+                    enabledCollections: ['ep']
+                })
+            ]
+        }),
+        Icons({
+            autoInstall: true
         })
     ],
     resolve: {
@@ -34,5 +50,8 @@ export default defineConfig({
             '@': resolve(__dirname, './src')
         }
     },
-    base: './'
+    base: './',
+    server: {
+        open: true
+    }
 });

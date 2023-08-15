@@ -1,19 +1,16 @@
 <script setup lang="ts"></script>
 <template>
-    <el-row
-        tag="div"
-        justify="space-between"
-        align="middle"
-        class="c-app-header"
-    >
+    <el-row justify="space-between" align="middle" class="c-app-header">
         <el-col :span="12">
             <router-link to="/" class="c-header__aside">
-                <SvgIcon name="fav" class="c-header__logo" />
                 <div class="c-header__title">POS Lifecycle Management</div>
             </router-link>
         </el-col>
         <el-col class="c-app-header__user" :span="12">
             <span>User name</span>
+            <el-icon>
+                <i-ep-plus />
+            </el-icon>
         </el-col>
     </el-row>
 </template>
