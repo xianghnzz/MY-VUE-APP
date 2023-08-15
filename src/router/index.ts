@@ -1,16 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import type { RouteRecordRaw } from 'vue-router';
+const Layout = () => import('@/layout/index.vue');
 
-const Layout = () => import('@/layout/test.vue');
-// import type { RouteRecordRaw } from 'vue-router';
-const constantRoutes = [
+const constantRoutes: RouteRecordRaw[] = [
     {
         path: '/',
         component: Layout,
         meta: {
             svgIcon: 'home',
             alwaysShow: false
-        },
-        children: []
+        }
     },
     {
         path: '/login',
