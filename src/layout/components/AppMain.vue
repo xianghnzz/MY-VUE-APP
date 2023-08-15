@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { useAppStoreHook } from '@/store/app';
-const appStore = useAppStoreHook();
+// import { useAppStoreHook } from '@/store/app';
+// const appStore = useAppStoreHook();
 const route = useRoute();
 const key = computed(() => {
     return route.path;
@@ -20,18 +20,18 @@ const key = computed(() => {
 </template>
 
 <style lang="scss">
-@import '@/styles/variables.scss';
+// @import '@/styles/variables.scss';
 
-.c-app-main {
-    height: calc(
-        100vh - var(--plm-header-height) - var(--plm-breadcrumb-height) - var(
-                --plm-footer-height
-            )
-    );
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-    background-color: $grey;
-    padding: $space-14;
-}
+// .c-app-main {
+//     height: calc(
+//         100vh - var(--plm-header-height) - var(--plm-breadcrumb-height) - var(
+//                 --plm-footer-height
+//             )
+//     );
+//     width: 100%;
+//     position: relative;
+//     overflow: hidden;
+//     background-color: $grey;
+//     padding: $space-14;
+// }
 </style>
