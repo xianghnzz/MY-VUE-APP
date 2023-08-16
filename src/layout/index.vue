@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {
-    AppHeader
-    // Sidebar,
+    AppHeader,
+    Sidebar
     // AppMain,
     // Breadcrumb,
     // Hamburger
@@ -27,12 +27,12 @@ import {
 <template>
     <div class="c-layout">
         <AppHeader />
-        <div class="c-layout__container">
-            <el-row>
-                <el-col :span="4"></el-col>
-                <el-col :span="20"></el-col>
-            </el-row>
-        </div>
+        <el-row class="c-layout__container">
+            <el-col :span="4">
+                <Sidebar />
+            </el-col>
+            <el-col :span="20"></el-col>
+        </el-row>
     </div>
 </template>
 

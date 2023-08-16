@@ -7,7 +7,7 @@
             </router-link>
         </el-col>
         <el-col class="c-app-header__user" :span="12">
-            <el-dropdown>
+            <el-dropdown trigger="click">
                 <el-avatar :size="30" class="c-app-header__user__avatar">
                     <el-icon :size="20">
                         <i-ep-UserFilled />
@@ -41,13 +41,7 @@
     &__user {
         text-align: right;
 
-        // &__name {
-        //     margin-right: 20px;
-        //     font-weight: bold;
-        // }
-
         &__avatar {
-            // background-color: #00a2f0;
             cursor: pointer;
         }
     }
