@@ -2,8 +2,8 @@
 <template>
     <el-row justify="space-between" align="middle" class="c-app-header">
         <el-col :span="12">
-            <router-link to="/" class="c-header__aside">
-                <div class="c-header__title">Vite Vue3</div>
+            <router-link to="/">
+                <div class="c-app-header__title">Vite Vue3</div>
             </router-link>
         </el-col>
         <el-col class="c-app-header__user" :span="12">
@@ -28,10 +28,15 @@
 <style lang="scss" scoped>
 @import '@/styles/variables.scss';
 .c-app-header {
-    // background-color: red;
+    background-color: $white;
     width: 100%;
     height: 60px;
     padding: 0 30px;
+
+    &__title {
+        font-size: $xx-big;
+        color: $black;
+    }
 
     &__user {
         text-align: right;

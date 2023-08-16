@@ -43,6 +43,7 @@ import {
     height: 100%;
     display: grid;
     grid-template-rows: auto 1fr;
+    background-color: $grey;
 
     &__container {
     }
