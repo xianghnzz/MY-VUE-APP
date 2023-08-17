@@ -1,4 +1,7 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { constantRoutes } from '@/router';
+console.log(constantRoutes);
+</script>
 
 <template>
     <div class="c-slidebar">
@@ -10,6 +13,7 @@
                 text-color="#ffffff"
                 mode="vertical"
             >
+                <!-- <SidebarItem /> -->
             </el-menu>
         </el-scrollbar>
     </div>

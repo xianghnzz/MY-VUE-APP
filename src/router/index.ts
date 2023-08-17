@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import type { RouteRecordRaw } from 'vue-router';
 const Layout = () => import('@/layout/index.vue');
 /**常驻路由 */
-const constantRoutes: RouteRecordRaw[] = [
+export const constantRoutes: RouteRecordRaw[] = [
     {
         path: '/login',
         name: 'Login',

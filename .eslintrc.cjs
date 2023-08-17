@@ -45,7 +45,7 @@ module.exports = {
         //     2,
         //     {
         //         // 单行时可以接收最大数量
-        //         singleline: 2,
+        //         singleline: 8,
         //         // 多行时可以接收最大数量
         //         multiline: {
         //             max: 1
