@@ -1,0 +1,24 @@
+<script setup lang="ts">
+import { computed } from 'vue';
+const props = withDefaults(
+    defineProps<{
+        prefix?: string;
+        name: string;
+        color?: string;
+        width?: string;
+        height?: string;
+    }>(),
+    {
+        prefix: 'icon',
+        color: '#333',
+        width: '16px',
+        height: '16px'
+    }
+);
+const symbolId = computed(() => `#${props.prefix}-${props.name}`);
+</script>
+<template>
+    <svg aria-hidden="true" class="c-svg-icon" :width="width" :height="height">
+        <use :href="symbolId" :fill="color" />
+    </svg>
+</template>

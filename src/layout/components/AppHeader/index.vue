@@ -7,6 +7,7 @@
             </router-link>
         </el-col>
         <el-col class="c-app-header__user" :span="12">
+            <SvgIcon name="home" color="red" />
             <el-dropdown trigger="click">
                 <el-avatar :size="30" class="c-app-header__user__avatar">
                     <el-icon :size="20">
