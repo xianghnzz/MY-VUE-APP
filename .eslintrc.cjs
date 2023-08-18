@@ -9,6 +9,7 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
         'plugin:vue/vue3-essential',
         'plugin:prettier/recommended',
+        'eslint-config-prettier',
         './.eslintrc-auto-import.json'
     ],
     overrides: [
@@ -28,37 +29,14 @@ module.exports = {
         parser: '@typescript-eslint/parser',
         sourceType: 'module'
     },
-    plugins: ['@typescript-eslint', 'vue'],
+    plugins: ['@typescript-eslint', 'vue', 'prettier'],
     rules: {
         'vue/multi-word-component-names': 'off', // 不使用驼峰命名
-        'vue/html-indent': ['error', 4], // vue html模板空四格,
-        // 'vue/first-attribute-linebreak': [
-        //     2,
-        //     {
-        //         // 单行时，第一属性前不允许使用换行符
-        //         singleline: 'beside',
-        //         // 多行时，第一属性前必须使用换行符
-        //         multiline: 'below'
-        //     }
-        // ],
-        // 'vue/max-attributes-per-line': [
-        //     2,
-        //     {
-        //         // 单行时可以接收最大数量
-        //         singleline: 8,
-        //         // 多行时可以接收最大数量
-        //         multiline: {
-        //             max: 1
-        //         }
-        //     }
-        // ],
-        indent: ['error', 4, { SwitchCase: 1 }],
         'comma-dangle': ['error', 'never'], // 不允许对象中出现结尾逗号
         'no-var': 0, // 使用let和const代替var
         quotes: ['error', 'single', { avoidEscape: true }], // js中使用单引号
         'jsx-quotes': ['error', 'prefer-double'], // jsx模板中使用双引号
         eqeqeq: ['error', 'smart'], // 使用全等（===， !==）
-        'max-len': ['error', { code: 180 }],
-        '@typescript-eslint/no-explicit-any': ['off']
+        '@typescript-eslint/no-explicit-any': ['off'] // 允许使用any类型
     }
 };

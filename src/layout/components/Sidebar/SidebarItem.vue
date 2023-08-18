@@ -8,7 +8,7 @@ const props = defineProps({
 /**子菜单数量 */
 const showingChildNumber = computed(() => {
     if (props.item.children) {
-        const showingChildren = props.item.children.filter(item => {
+        const showingChildren = props.item.children.filter((item: any) => {
             return !(item.meta && item.meta.hidden);
         });
         return showingChildren.length;
@@ -46,7 +46,7 @@ const alwaysShowRootMenu = computed(() => {
                 !theOnlyOneChild.children
             "
         >
-            <SidebarItemLink
+            <!-- <SidebarItemLink
                 v-if="theOnlyOneChild.meta"
                 :to="resolvePath(theOnlyOneChild.path)"
             >
@@ -67,7 +67,7 @@ const alwaysShowRootMenu = computed(() => {
                         </span>
                     </template>
                 </el-menu-item>
-            </SidebarItemLink>
+            </SidebarItemLink> -->
         </template>
     </div>
 </template>
