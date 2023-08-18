@@ -31,7 +31,9 @@ import {
             <el-col :span="4">
                 <Sidebar />
             </el-col>
-            <el-col :span="20"></el-col>
+            <el-col :span="20">
+                <router-view></router-view>
+            </el-col>
         </el-row>
     </div>
 </template>

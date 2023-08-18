@@ -1,6 +1,7 @@
 <script lang="ts" setup>
+import SidebarItem from './SidebarItem.vue';
 import { constantRoutes } from '@/router';
-console.log(constantRoutes);
+const route = useRoute();
 </script>
 
 <template>
@@ -13,7 +14,12 @@ console.log(constantRoutes);
                 text-color="#ffffff"
                 mode="vertical"
             >
-                <!-- <SidebarItem /> -->
+                <SidebarItem
+                    v-for="(item, index) in constantRoutes"
+                    :item="item"
+                    :key="index"
+                    :base-path="route.path"
+                />
             </el-menu>
         </el-scrollbar>
     </div>

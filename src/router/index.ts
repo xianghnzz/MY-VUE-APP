@@ -25,7 +25,7 @@ export const constantRoutes: RouteRecordRaw[] = [
                 name: 'Dashboard',
                 component: () => import('@/view/dashboard/index.vue'),
                 meta: {
-                    svgIcon: 'home'
+                    title: '首页'
                 }
             }
         ]
@@ -35,13 +35,18 @@ export const constantRoutes: RouteRecordRaw[] = [
         name: 'UserManagement',
         component: Layout,
         meta: {
-            alwaysShow: false
+            alwaysShow: false,
+            svgIcon: 'home',
+            title: '用户管理'
         },
         children: [
             {
                 path: '',
                 name: 'User',
-                component: () => import('@/view/user/index.vue')
+                component: () => import('@/view/user/index.vue'),
+                meta: {
+                    title: '用户管理'
+                }
             }
         ]
     },
@@ -50,13 +55,26 @@ export const constantRoutes: RouteRecordRaw[] = [
         name: 'RoleManagement',
         component: Layout,
         meta: {
-            alwaysShow: false
+            alwaysShow: false,
+            svgIcon: 'home',
+            title: '角色管理'
         },
         children: [
             {
                 path: '',
                 name: 'Role',
-                component: () => import('@/view/role/index.vue')
+                component: () => import('@/view/role/index.vue'),
+                meta: {
+                    title: '角色管理'
+                }
+            },
+            {
+                path: 'portal',
+                name: 'Portal',
+                component: () => import('@/view/role/portal.vue'),
+                meta: {
+                    title: 'Portal角色管理'
+                }
             }
         ]
     }

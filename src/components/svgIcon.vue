@@ -18,7 +18,13 @@ const props = withDefaults(
 const symbolId = computed(() => `#${props.prefix}-${props.name}`);
 </script>
 <template>
-    <svg aria-hidden="true" class="c-svg-icon" :width="width" :height="height">
-        <use :href="symbolId" :fill="color" />
+    <svg
+        aria-hidden="true"
+        class="c-svg-icon"
+        :width="width"
+        :height="height"
+        :fill="color"
+    >
+        <use :href="symbolId" />
     </svg>
 </template>

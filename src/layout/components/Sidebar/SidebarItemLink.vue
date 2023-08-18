@@ -1,24 +1,22 @@
 <script lang="ts" setup>
 import { isExternal } from '@/utils/validate';
 
-const props = defineProps({
-    to: {
-        type: String,
-        required: true
-    }
-});
+defineProps<{ to: string }>();
 </script>
 
 <template>
     <a
-        v-if="isExternal(props.to)"
-        :href="props.to"
+        v-if="isExternal(to)"
+        :href="to"
         target="_blank"
         rel="noopener"
     >
         <slot />
     </a>
-    <router-link v-else :to="props.to">
+    <router-link
+        v-else
+        :to="to"
+    >
         <slot />
     </router-link>
 </template>

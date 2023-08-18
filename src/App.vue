@@ -15,7 +15,11 @@ watchEffect(changeLanguage);
 </script>
 
 <template>
-    <el-config-provider size="default" :z-index="10" :locale="localeLang">
+    <el-config-provider
+        size="default"
+        :z-index="10"
+        :locale="localeLang"
+    >
         <router-view />
     </el-config-provider>
 </template>

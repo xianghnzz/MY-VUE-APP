@@ -1,12 +1,20 @@
 <script lang="ts" setup>
+import { isExternal } from '@/utils/validate';
+import { resolve } from 'path-browserify';
+import SidebarItemLink from './SidebarItemLink.vue';
+
 const props = defineProps({
     item: {
         type: Object,
         required: true
+    },
+    basePath: {
+        type: String,
+        default: ''
     }
 });
 /**子菜单数量 */
-const showingChildNumber = computed(() => {
+const showingChildNumber: ComputedRef<number> = computed(() => {
     if (props.item.children) {
         const showingChildren = props.item.children.filter((item: any) => {
             return !(item.meta && item.meta.hidden);
@@ -34,35 +42,67 @@ const theOnlyOneChild: any = computed(() => {
 const alwaysShowRootMenu = computed(() => {
     return props.item.meta && props.item.meta.alwaysShow;
 });
+/**路由拼接 */
+const resolvePath = (routePath: string): string => {
+    if (isExternal(routePath)) {
+        return routePath;
+    }
+    if (isExternal(props.basePath)) {
+        return props.basePath;
+    }
+    return resolve(props.basePath, routePath);
+};
 </script>
 
 <template>
     <div v-if="!props.item.meta?.hidden">
-        <!-- 只有一个菜单 -->
+        <!-- 只有一个子菜单且根菜单alwaysShow等于false 或没有子菜单-->
         <template v-if="!alwaysShowRootMenu && theOnlyOneChild && !theOnlyOneChild.children">
-            <!-- <SidebarItemLink
+            <SidebarItemLink
                 v-if="theOnlyOneChild.meta"
                 :to="resolvePath(theOnlyOneChild.path)"
             >
                 <el-menu-item :index="resolvePath(theOnlyOneChild.path)">
-                    <div
-                        class="icon-continar"
+                    <SvgIcon
                         v-if="theOnlyOneChild.meta.svgIcon"
+                        :name="theOnlyOneChild.meta.svgIcon"
+                        width="20px"
+                        height="20px"
+                        fill="#ffffff"
+                    />
+                    <template
+                        v-if="theOnlyOneChild.meta.title"
+                        #title
                     >
-                        <svg-icon :name="theOnlyOneChild.meta.svgIcon" />
-                    </div>
-                    <template v-if="theOnlyOneChild.meta.title" #title>
-                        <span>
-                            {{
-                                appStore.language === 'en'
-                                    ? (theOnlyOneChild.meta.titleEn as string)
-                                    : theOnlyOneChild.meta.title
-                            }}
-                        </span>
+                        {{ theOnlyOneChild.meta.title }}
                     </template>
                 </el-menu-item>
-            </SidebarItemLink> -->
+            </SidebarItemLink>
         </template>
+        <!-- 多个子菜单 -->
+        <el-sub-menu
+            v-else
+            :index="resolvePath(item.path)"
+        >
+            <template #title>
+                <SvgIcon
+                    v-if="item.meta && item.meta.svgIcon"
+                    :name="item.meta.svgIcon"
+                    fill="#ffffff"
+                    width="20px"
+                    height="20px"
+                />
+                <span v-if="item.meta && item.meta.title">{{ item.meta.title }}</span>
+            </template>
+            <template v-if="item.children">
+                <sidebar-item
+                    v-for="child in item.children"
+                    :key="child.path"
+                    :item="child"
+                    :base-path="resolvePath(child.path)"
+                />
+            </template>
+        </el-sub-menu>
     </div>
 </template>
 
