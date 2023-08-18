@@ -67,7 +67,6 @@ const resolvePath = (routePath: string): string => {
                         v-if="theOnlyOneChild.meta.svgIcon"
                         :name="theOnlyOneChild.meta.svgIcon"
                         width="20px"
-                        height="20px"
                         fill="#ffffff"
                     />
                     <template
@@ -88,9 +87,8 @@ const resolvePath = (routePath: string): string => {
                 <SvgIcon
                     v-if="item.meta && item.meta.svgIcon"
                     :name="item.meta.svgIcon"
-                    fill="#ffffff"
                     width="20px"
-                    height="20px"
+                    fill="#ffffff"
                 />
                 <span v-if="item.meta && item.meta.title">{{ item.meta.title }}</span>
             </template>

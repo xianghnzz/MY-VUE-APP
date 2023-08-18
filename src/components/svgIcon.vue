@@ -11,8 +11,7 @@ const props = withDefaults(
     {
         prefix: 'icon',
         color: '#333',
-        width: '16px',
-        height: '16px'
+        width: '1em'
     }
 );
 const symbolId = computed(() => `#${props.prefix}-${props.name}`);
@@ -28,3 +27,4 @@ const symbolId = computed(() => `#${props.prefix}-${props.name}`);
         <use :href="symbolId" />
     </svg>
 </template>
+<style lang="scss" scoped></style>
