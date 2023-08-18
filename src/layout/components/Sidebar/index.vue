@@ -29,5 +29,8 @@ import { constantRoutes } from '@/router';
     width: 100%;
     height: 100%;
     background-color: #003a5a;
+    .el-menu {
+        border: none;
+    }
 }
 </style>
