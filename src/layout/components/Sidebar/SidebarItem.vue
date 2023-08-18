@@ -39,13 +39,7 @@ const alwaysShowRootMenu = computed(() => {
 <template>
     <div v-if="!props.item.meta?.hidden">
         <!-- 只有一个菜单 -->
-        <template
-            v-if="
-                !alwaysShowRootMenu &&
-                theOnlyOneChild &&
-                !theOnlyOneChild.children
-            "
-        >
+        <template v-if="!alwaysShowRootMenu && theOnlyOneChild && !theOnlyOneChild.children">
             <!-- <SidebarItemLink
                 v-if="theOnlyOneChild.meta"
                 :to="resolvePath(theOnlyOneChild.path)"
