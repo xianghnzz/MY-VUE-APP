@@ -55,7 +55,10 @@ const resolvePath = (routePath: string): string => {
 </script>
 
 <template>
-    <div v-if="!props.item.meta?.hidden">
+    <div
+        v-if="!item.meta?.hidden"
+        class="c-sidebar-item"
+    >
         <!-- 只有一个子菜单且根菜单alwaysShow等于false 或没有子菜单-->
         <template v-if="!alwaysShowRootMenu && theOnlyOneChild && !theOnlyOneChild.children">
             <SidebarItemLink
@@ -63,12 +66,15 @@ const resolvePath = (routePath: string): string => {
                 :to="resolvePath(theOnlyOneChild.path)"
             >
                 <el-menu-item :index="resolvePath(theOnlyOneChild.path)">
-                    <SvgIcon
-                        v-if="theOnlyOneChild.meta.svgIcon"
-                        :name="theOnlyOneChild.meta.svgIcon"
-                        width="20px"
-                        fill="#ffffff"
-                    />
+                    <div class="c-sidebar-item__icon">
+                        <SvgIcon
+                            v-if="theOnlyOneChild.meta.svgIcon"
+                            :name="theOnlyOneChild.meta.svgIcon"
+                            width="20px"
+                            fill="#ffffff"
+                        />
+                    </div>
+
                     <template
                         v-if="theOnlyOneChild.meta.title"
                         #title
@@ -84,12 +90,15 @@ const resolvePath = (routePath: string): string => {
             :index="resolvePath(item.path)"
         >
             <template #title>
-                <SvgIcon
-                    v-if="item.meta && item.meta.svgIcon"
-                    :name="item.meta.svgIcon"
-                    width="20px"
-                    fill="#ffffff"
-                />
+                <div class="c-sidebar-item__icon">
+                    <SvgIcon
+                        v-if="item.meta && item.meta.svgIcon"
+                        :name="item.meta.svgIcon"
+                        width="20px"
+                        fill="#ffffff"
+                    />
+                </div>
+
                 <span v-if="item.meta && item.meta.title">{{ item.meta.title }}</span>
             </template>
             <template v-if="item.children">
@@ -104,4 +113,11 @@ const resolvePath = (routePath: string): string => {
     </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.c-sidebar-item {
+    &__icon {
+        display: inline-flex;
+        margin-right: 12px;
+    }
+}
+</style>
