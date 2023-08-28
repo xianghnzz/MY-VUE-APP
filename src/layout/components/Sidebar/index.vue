@@ -13,6 +13,7 @@ const appStore = useAppStoreHook();
             <el-menu
                 :unique-opened="true"
                 :collapse="!appStore.sidebarIsOpen"
+                :collapse-transition="false"
                 background-color="#003a5a"
                 text-color="#ffffff"
                 mode="vertical"
