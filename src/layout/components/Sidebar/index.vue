@@ -12,7 +12,7 @@ const appStore = useAppStoreHook();
         <el-scrollbar>
             <el-menu
                 :unique-opened="true"
-                :collapse="appStore.sidebar.opened"
+                :collapse="!appStore.sidebar.opened"
                 background-color="#003a5a"
                 text-color="#ffffff"
                 mode="vertical"

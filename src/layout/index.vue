@@ -6,32 +6,35 @@ import {
     // Breadcrumb,
     // Hamburger
 } from './components';
-// import { useAppStoreHook } from '@/store/app';
-/**展开收起菜单栏 */
-// const appStore = useAppStoreHook();
-// const slidebar = computed(() => {
-//     return appStore.sidebar;
-// });
-// const toggleSidebar = () => {
-//     appStore.toggleSidebar(false);
-// };
-// const classObj = computed(() => {
-//     return {
-//         hideSidebar: !appStore.sidebar.opened,
-//         openSidebar: appStore.sidebar.opened,
-//         withoutAnimation: appStore.sidebar.withAnimation
-//     };
-// });
+import { useAppStoreHook } from '@/store/app';
+const appStore = useAppStoreHook();
+const classObj = computed(() => {
+    return {
+        hideSidebar: !appStore.sidebar.opened,
+        withoutAnimation: appStore.sidebar.withAnimation
+    };
+});
+const sideBarWidth = computed(() => {
+    if (appStore.sidebar.opened) return 3;
+    return 1;
+});
+const mainWidth = computed(() => {
+    if (appStore.sidebar.opened) return 21;
+    return 23;
+});
 </script>
 
 <template>
-    <div class="c-layout">
+    <div
+        class="c-layout"
+        :class="classObj"
+    >
         <AppHeader />
         <el-row class="c-layout__container">
-            <el-col :span="4">
+            <el-col :span="sideBarWidth">
                 <Sidebar />
             </el-col>
-            <el-col :span="20">
+            <el-col :span="mainWidth">
                 <router-view></router-view>
             </el-col>
         </el-row>
@@ -46,6 +49,9 @@ import {
     display: grid;
     grid-template-rows: auto 1fr;
     background-color: $grey;
+    .el-col {
+        transition: 0.28s;
+    }
 
     // &__container {
     // }

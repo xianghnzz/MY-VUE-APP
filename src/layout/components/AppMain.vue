@@ -13,7 +13,10 @@ const key = computed(() => {
             <transition name="fade-transform">
                 <!-- <keep-alive >
       </keep-alive> -->
-                <component :is="Component" :key="key" />
+                <component
+                    :is="Component"
+                    :key="key"
+                />
             </transition>
         </router-view>
     </section>
