@@ -36,7 +36,7 @@ export const constantRoutes: RouteRecordRaw[] = [
         component: Layout,
         meta: {
             alwaysShow: false,
-            svgIcon: 'home',
+            svgIcon: 'system',
             title: '用户管理'
         },
         children: [
@@ -56,7 +56,7 @@ export const constantRoutes: RouteRecordRaw[] = [
         component: Layout,
         meta: {
             alwaysShow: false,
-            svgIcon: 'home',
+            svgIcon: 'store',
             title: '角色管理'
         },
         children: [

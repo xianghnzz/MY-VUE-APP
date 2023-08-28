@@ -22,7 +22,11 @@ const toggleClick = () => {
         :class="['c-humburger', !props.isActive ? 'closed' : '']"
         @click="toggleClick"
     >
-        <el-icon class="c-humburger__icon">
+        <el-icon
+            class="c-humburger__icon"
+            color="#ffffff"
+            :size="16"
+        >
             <Fold v-if="props.isActive" />
             <Expand v-else />
         </el-icon>
@@ -36,38 +40,30 @@ const toggleClick = () => {
     $c: &;
 
     width: 0;
-    height: var(--plm-hamburger-height);
-    border-right: var(--plm-hamburger-width) solid
-        rgba($color: $darker-blue, $alpha: 0.8);
+    height: 90px;
+    border-right: 20px solid rgba($color: #00283e, $alpha: 0.8);
     border-top: 15px solid transparent;
     border-bottom: 15px solid transparent;
-    position: relative;
     cursor: pointer;
+    position: relative;
 
     &__icon {
         vertical-align: middle;
         color: #fff;
         position: absolute;
-        left: 0;
+        left: 10px;
         top: 50%;
-        transform: translate(0, -50%);
-        width: 20px;
-        height: 20px;
-        svg {
-            width: 18px;
-            height: 18px;
-        }
+        transform: translate(-8px, -50%);
     }
 
-    &.closed {
-        border-left: var(--plm-hamburger-width) solid
-            rgba($color: $darker-blue, $alpha: 0.8);
-        border-right: none;
+    // &.closed {
+    //     border-left: var(--plm-hamburger-width) solid rgba($color: $darker-blue, $alpha: 0.8);
+    //     border-right: none;
 
-        #{$c}__icon {
-            left: auto;
-            right: 0;
-        }
-    }
+    //     #{$c}__icon {
+    //         left: auto;
+    //         right: 0;
+    //     }
+    // }
 }
 </style>
