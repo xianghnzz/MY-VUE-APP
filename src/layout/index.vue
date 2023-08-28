@@ -48,6 +48,10 @@ const appStore = useAppStoreHook();
             }
             :deep(.c-sidebar-item__icon) {
                 margin-left: 12px;
+                svg {
+                    width: 30px;
+                    height: 30px;
+                }
             }
             .el-menu-item {
                 text-align: center;
