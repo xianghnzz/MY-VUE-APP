@@ -46,6 +46,17 @@ const appStore = useAppStoreHook();
                 width: calc(100% - var(--plm-hide-sidebar-width));
                 margin-left: var(--plm-hide-sidebar-width);
             }
+            :deep(.c-sidebar-item__icon) {
+                margin-left: 12px;
+            }
+            .el-menu-item {
+                text-align: center;
+            }
+
+            :deep(.el-tooltip__trigger) {
+                padding: 0;
+                justify-content: center;
+            }
         }
     }
 }

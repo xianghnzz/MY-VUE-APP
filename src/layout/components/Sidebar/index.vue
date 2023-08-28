@@ -44,6 +44,7 @@ const appStore = useAppStoreHook();
     bottom: 0;
     .el-menu {
         border: none;
+        width: 100%;
     }
 
     &__hamburger {
