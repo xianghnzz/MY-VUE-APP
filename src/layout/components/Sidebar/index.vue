@@ -2,6 +2,9 @@
 import SidebarItem from './SidebarItem.vue';
 import Hamburger from '../Hamburger/index.vue';
 import { constantRoutes } from '@/router';
+import { useAppStoreHook } from '@/store/app';
+
+const appStore = useAppStoreHook();
 </script>
 
 <template>
@@ -9,7 +12,7 @@ import { constantRoutes } from '@/router';
         <el-scrollbar>
             <el-menu
                 :unique-opened="true"
-                :collapse="false"
+                :collapse="appStore.sidebar.opened"
                 background-color="#003a5a"
                 text-color="#ffffff"
                 mode="vertical"

@@ -1,25 +1,15 @@
 <script lang="ts" setup>
-import { Expand, Fold } from '@element-plus/icons-vue';
+import { useAppStoreHook } from '@/store/app';
 
-const props = defineProps({
-    isActive: {
-        type: Boolean,
-        default: false
-    }
-});
-
-const emit = defineEmits<{
-    (e: 'toggle-click'): void;
-}>();
-
+const appStore = useAppStoreHook();
 const toggleClick = () => {
-    emit('toggle-click');
+    appStore.toggleSidebar(false);
 };
 </script>
 
 <template>
     <div
-        :class="['c-humburger', !props.isActive ? 'closed' : '']"
+        :class="['c-humburger', !appStore.sidebar.opened ? 'closed' : '']"
         @click="toggleClick"
     >
         <el-icon
@@ -27,8 +17,8 @@ const toggleClick = () => {
             color="#ffffff"
             :size="16"
         >
-            <Fold v-if="props.isActive" />
-            <Expand v-else />
+            <!-- <Fold /> -->
+            <i-ep-fold></i-ep-fold>
         </el-icon>
     </div>
 </template>
@@ -46,6 +36,7 @@ const toggleClick = () => {
     border-bottom: 15px solid transparent;
     cursor: pointer;
     position: relative;
+    transition: 0.2s;
 
     &__icon {
         vertical-align: middle;
@@ -56,14 +47,9 @@ const toggleClick = () => {
         transform: translate(-8px, -50%);
     }
 
-    // &.closed {
-    //     border-left: var(--plm-hamburger-width) solid rgba($color: $darker-blue, $alpha: 0.8);
-    //     border-right: none;
-
-    //     #{$c}__icon {
-    //         left: auto;
-    //         right: 0;
-    //     }
-    // }
+    &.closed {
+        transform: scaleX(-1);
+        transform-origin: right;
+    }
 }
 </style>
