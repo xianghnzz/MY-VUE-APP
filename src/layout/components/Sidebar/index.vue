@@ -36,9 +36,12 @@ const appStore = useAppStoreHook();
 </template>
 
 <style lang="scss" scoped>
+@import '@/styles/variables.scss';
 .c-slidebar {
     background-color: #003a5a;
-    position: relative;
+    position: fixed;
+    top: var(--plm-header-height);
+    bottom: 0;
     .el-menu {
         border: none;
     }
@@ -49,8 +52,5 @@ const appStore = useAppStoreHook();
         right: 0;
         transform: translate(0, -50%);
     }
-}
-.el-menu-vertical-demo {
-    background-color: yellowgreen;
 }
 </style>

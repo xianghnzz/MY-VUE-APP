@@ -7,20 +7,12 @@ import {
 } from './components';
 import { useAppStoreHook } from '@/store/app';
 const appStore = useAppStoreHook();
-const classObj = computed(() => {
-    return {
-        hideSidebar: !appStore.sidebarIsOpen
-    };
-});
 </script>
 
 <template>
     <div class="c-layout">
         <AppHeader />
-        <div
-            class="c-layout__container"
-            :class="classObj"
-        >
+        <div :class="{ 'c-layout__container': true, hideSidebar: !appStore.sidebarIsOpen }">
             <Sidebar />
             <AppMain />
         </div>
@@ -39,9 +31,6 @@ const classObj = computed(() => {
     &__container {
         .c-slidebar {
             width: var(--plm-sidebar-width);
-            position: fixed;
-            top: var(--plm-header-height);
-            bottom: 0;
             transition: 0.28s;
         }
         .c-app-main {
@@ -52,9 +41,6 @@ const classObj = computed(() => {
         &.hideSidebar {
             .c-slidebar {
                 width: var(--plm-hide-sidebar-width);
-                position: fixed;
-                top: var(--plm-header-height);
-                bottom: 0;
             }
             .c-app-main {
                 width: calc(100% - var(--plm-hide-sidebar-width));
