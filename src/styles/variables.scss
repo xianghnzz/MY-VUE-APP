@@ -1,7 +1,7 @@
 /** 全局 CSS 变量，这种变量不仅可以在 CSS 和 SCSS 中使用，还可以导入到 JS 中使用 */
 :root {
-    --plm-side-width: 300px;
-    --plm-hide-side-width: 120px;
+    --plm-sidebar-width: 300px;
+    --plm-hide-sidebar-width: 120px;
     --plm-header-height: 64px;
     --plm-hamburger-height: 90px;
     --plm-hamburger-width: 20px;

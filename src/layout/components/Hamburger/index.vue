@@ -3,13 +3,13 @@ import { useAppStoreHook } from '@/store/app';
 
 const appStore = useAppStoreHook();
 const toggleClick = () => {
-    appStore.toggleSidebar(false);
+    appStore.toggleSidebar();
 };
 </script>
 
 <template>
     <div
-        :class="['c-humburger', !appStore.sidebar.opened ? 'closed' : '']"
+        :class="['c-humburger', !appStore.sidebarIsOpen ? 'closed' : '']"
         @click="toggleClick"
     >
         <el-icon
@@ -17,7 +17,6 @@ const toggleClick = () => {
             color="#ffffff"
             :size="16"
         >
-            <!-- <Fold /> -->
             <i-ep-fold></i-ep-fold>
         </el-icon>
     </div>

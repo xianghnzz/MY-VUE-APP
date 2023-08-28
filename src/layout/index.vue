@@ -1,43 +1,29 @@
 <script lang="ts" setup>
 import {
     AppHeader,
-    Sidebar
-    // AppMain,
+    Sidebar,
+    AppMain
     // Breadcrumb,
-    // Hamburger
 } from './components';
 import { useAppStoreHook } from '@/store/app';
 const appStore = useAppStoreHook();
 const classObj = computed(() => {
     return {
-        hideSidebar: !appStore.sidebar.opened,
-        withoutAnimation: appStore.sidebar.withAnimation
+        hideSidebar: !appStore.sidebarIsOpen
     };
-});
-const sideBarWidth = computed(() => {
-    if (appStore.sidebar.opened) return 3;
-    return 1;
-});
-const mainWidth = computed(() => {
-    if (appStore.sidebar.opened) return 21;
-    return 23;
 });
 </script>
 
 <template>
-    <div
-        class="c-layout"
-        :class="classObj"
-    >
+    <div class="c-layout">
         <AppHeader />
-        <el-row class="c-layout__container">
-            <el-col :span="sideBarWidth">
-                <Sidebar />
-            </el-col>
-            <el-col :span="mainWidth">
-                <router-view></router-view>
-            </el-col>
-        </el-row>
+        <div
+            class="c-layout__container"
+            :class="classObj"
+        >
+            <Sidebar />
+            <AppMain />
+        </div>
     </div>
 </template>
 
@@ -49,11 +35,32 @@ const mainWidth = computed(() => {
     display: grid;
     grid-template-rows: auto 1fr;
     background-color: $grey;
-    .el-col {
-        transition: 0.28s;
-    }
 
-    // &__container {
-    // }
+    &__container {
+        .c-slidebar {
+            width: var(--plm-sidebar-width);
+            position: fixed;
+            top: var(--plm-header-height);
+            bottom: 0;
+            transition: 0.28s;
+        }
+        .c-app-main {
+            width: calc(100% - var(--plm-sidebar-width));
+            margin-left: var(--plm-sidebar-width);
+            transition: 0.28s;
+        }
+        &.hideSidebar {
+            .c-slidebar {
+                width: var(--plm-hide-sidebar-width);
+                position: fixed;
+                top: var(--plm-header-height);
+                bottom: 0;
+            }
+            .c-app-main {
+                width: calc(100% - var(--plm-hide-sidebar-width));
+                margin-left: var(--plm-hide-sidebar-width);
+            }
+        }
+    }
 }
 </style>
