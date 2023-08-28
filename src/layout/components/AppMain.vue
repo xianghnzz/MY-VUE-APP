@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-// import { useAppStoreHook } from '@/store/app';
-// const appStore = useAppStoreHook();
 const route = useRoute();
 const key = computed(() => {
     return route.path;

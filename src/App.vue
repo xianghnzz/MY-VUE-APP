@@ -3,6 +3,7 @@ import { themeConfig } from '@/config';
 import { useI18n } from 'vue-i18n';
 import { useAppStoreHook } from '@/store/app';
 
+const route = useRoute();
 const appStore = useAppStoreHook();
 const { messages, locale }: any = useI18n();
 const localeLang: Ref = ref(messages[themeConfig.value.globalI18n]);
@@ -12,6 +13,9 @@ const changeLanguage = () => {
     localeLang.value = messages.value[locale.value];
 };
 watchEffect(changeLanguage);
+const key = computed(() => {
+    return route.path;
+});
 </script>
 
 <template>
@@ -20,7 +24,12 @@ watchEffect(changeLanguage);
         :z-index="10"
         :locale="localeLang"
     >
-        <router-view />
+        <router-view v-slot="{ Component }">
+            <component
+                :is="Component"
+                :key="key"
+            />
+        </router-view>
     </el-config-provider>
 </template>
 
