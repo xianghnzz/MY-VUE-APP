@@ -68,7 +68,7 @@ const activeMenu = computed(() => {
     background-color: #003a5a;
     position: fixed;
     top: var(--plm-header-height);
-    bottom: 0;
+    bottom: var(--plm-footer-height);
     display: flex;
     flex-direction: column;
 

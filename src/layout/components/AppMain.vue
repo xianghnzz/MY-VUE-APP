@@ -25,7 +25,7 @@ const key = computed(() => {
 @import '@/styles/variables.scss';
 
 .c-app-main {
-    height: calc(100vh - var(--plm-header-height) - var(--plm-breadcrumb-height));
+    height: calc(100% - var(--plm-breadcrumb-height));
     padding: 14px;
 }
 </style>

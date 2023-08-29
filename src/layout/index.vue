@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AppHeader, Sidebar, AppMain, Breadcrumb } from './components';
+import { AppHeader, Sidebar, AppMain, Breadcrumb, AppFooter } from './components';
 import { useAppStoreHook } from '@/store/app';
 const appStore = useAppStoreHook();
 </script>
@@ -12,6 +12,7 @@ const appStore = useAppStoreHook();
             <Breadcrumb class="c-layout__breadcrumb" />
             <AppMain />
         </div>
+        <AppFooter />
     </div>
 </template>
 
@@ -25,6 +26,7 @@ const appStore = useAppStoreHook();
     background-color: $grey;
 
     &__container {
+        height: calc(100vh - var(--plm-header-height) - var(--plm-footer-height));
         .c-slidebar {
             width: var(--plm-sidebar-width);
             transition: 0.28s;
