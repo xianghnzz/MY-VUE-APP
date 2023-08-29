@@ -60,7 +60,9 @@ const appStore = useAppStoreHook();
             :deep(.el-menu-item) {
                 text-align: center;
                 margin-top: 10px;
+                border: none;
                 &.is-active {
+                    background-color: transparent;
                     &::before {
                         display: none;
                     }
@@ -68,6 +70,9 @@ const appStore = useAppStoreHook();
             }
             :deep(.el-sub-menu) {
                 margin-top: 10px;
+            }
+            :deep(.el-sub-menu__title) {
+                border: none;
             }
             :deep(.el-tooltip__trigger) {
                 padding: 0;

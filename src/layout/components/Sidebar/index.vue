@@ -78,8 +78,28 @@ const activeMenu = computed(() => {
         transform: translate(0, -50%);
     }
     :deep(.el-menu-item) {
+        border-bottom: 1px dashed rgba($color: $white, $alpha: 0.3);
         &.is-active {
             @include tip-line;
+            background: rgba($color: #ffffff, $alpha: 0.5);
+        }
+    }
+    :deep(.el-sub-menu__title) {
+        border-bottom: 1px dashed rgba($color: $white, $alpha: 0.3);
+    }
+    :deep(.el-sub-menu .el-menu a .el-menu-item) {
+        border-bottom: none;
+        position: relative;
+        overflow: hidden;
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 0px;
+            right: 0;
+            width: calc(100% - var(--el-menu-base-level-padding) - var(--el-menu-level) * var(--el-menu-level-padding));
+            height: 0;
+            border-bottom: 1px dashed rgba($color: $white, $alpha: 0.3);
         }
     }
 }
