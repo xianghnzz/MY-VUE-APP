@@ -62,7 +62,7 @@ const resolvePath = (routePath: string): string => {
             :to="resolvePath(theOnlyOneChild.path)"
         >
             <el-menu-item :index="resolvePath(theOnlyOneChild.path)">
-                <div class="c-sidebar-item__icon">
+                <div class="c-slidebar-item__icon">
                     <SvgIcon
                         v-if="theOnlyOneChild.meta.svgIcon"
                         :name="theOnlyOneChild.meta.svgIcon"
@@ -86,7 +86,7 @@ const resolvePath = (routePath: string): string => {
         :index="resolvePath(item.path)"
     >
         <template #title>
-            <div class="c-sidebar-item__icon">
+            <div class="c-slidebar-item__icon">
                 <SvgIcon
                     v-if="item.meta && item.meta.svgIcon"
                     :name="item.meta.svgIcon"
@@ -110,9 +110,12 @@ const resolvePath = (routePath: string): string => {
 </template>
 
 <style lang="scss" scoped>
-.c-sidebar-item {
+@import '@/styles/variables.scss';
+.c-slidebar-item {
     &__icon {
         display: inline-flex;
+        justify-content: center;
+        align-items: center;
         margin-right: 12px;
     }
 }
