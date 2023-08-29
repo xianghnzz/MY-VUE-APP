@@ -1,3 +1,5 @@
 <script setup lang="ts"></script>
-<template>用户</template>
+<template>
+    <div>用户</div>
+</template>
 <style lang="scss" scoped></style>
