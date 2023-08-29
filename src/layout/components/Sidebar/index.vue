@@ -17,6 +17,9 @@ const activeMenu = computed(() => {
 
 <template>
     <div class="c-slidebar">
+        <router-link to="/">
+            <div class="c-slidebar__logo">Recycle</div>
+        </router-link>
         <el-scrollbar>
             <el-menu
                 :default-active="activeMenu"
@@ -66,10 +69,6 @@ const activeMenu = computed(() => {
     position: fixed;
     top: var(--plm-header-height);
     bottom: 0;
-    .el-menu {
-        border: none;
-        width: 100%;
-    }
 
     &__hamburger {
         position: absolute;
@@ -77,6 +76,23 @@ const activeMenu = computed(() => {
         right: 0;
         transform: translate(0, -50%);
     }
+
+    &__logo {
+        height: 80px;
+        font-size: 20px;
+        color: $white;
+        background-color: $darker-blue;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        transition: 0.28s;
+    }
+    .el-menu {
+        border: none;
+        width: 100%;
+    }
+
     :deep(.el-menu-item) {
         border-bottom: 1px dashed rgba($color: $white, $alpha: 0.3);
         &.is-active {

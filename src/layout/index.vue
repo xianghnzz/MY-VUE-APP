@@ -46,6 +46,10 @@ const appStore = useAppStoreHook();
                 width: calc(100% - var(--plm-hide-sidebar-width));
                 margin-left: var(--plm-hide-sidebar-width);
             }
+            :deep(.c-slidebar__logo) {
+                height: 46px !important;
+                font-size: 16px;
+            }
             :deep(.c-slidebar-item__icon) {
                 margin-left: 12px;
                 background: rgba($color: #ffffff, $alpha: 0.5);
