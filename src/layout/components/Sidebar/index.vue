@@ -69,6 +69,8 @@ const activeMenu = computed(() => {
     position: fixed;
     top: var(--plm-header-height);
     bottom: 0;
+    display: flex;
+    flex-direction: column;
 
     &__hamburger {
         position: absolute;
@@ -87,6 +89,9 @@ const activeMenu = computed(() => {
         justify-content: center;
         font-size: 24px;
         transition: 0.28s;
+    }
+    .el-scrollbar {
+        flex: 1;
     }
     .el-menu {
         border: none;
