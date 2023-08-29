@@ -1,10 +1,5 @@
 <script lang="ts" setup>
-import {
-    AppHeader,
-    Sidebar,
-    AppMain
-    // Breadcrumb,
-} from './components';
+import { AppHeader, Sidebar, AppMain, Breadcrumb } from './components';
 import { useAppStoreHook } from '@/store/app';
 const appStore = useAppStoreHook();
 </script>
@@ -14,6 +9,7 @@ const appStore = useAppStoreHook();
         <AppHeader />
         <div :class="{ 'c-layout__container': true, hideSidebar: !appStore.sidebarIsOpen }">
             <Sidebar />
+            <Breadcrumb class="c-layout__breadcrumb" />
             <AppMain />
         </div>
     </div>
@@ -33,6 +29,8 @@ const appStore = useAppStoreHook();
             width: var(--plm-sidebar-width);
             transition: 0.28s;
         }
+
+        .c-breadcrumb,
         .c-app-main {
             width: calc(100% - var(--plm-sidebar-width));
             margin-left: var(--plm-sidebar-width);
@@ -42,6 +40,7 @@ const appStore = useAppStoreHook();
             .c-slidebar {
                 width: var(--plm-hide-sidebar-width);
             }
+            .c-breadcrumb,
             .c-app-main {
                 width: calc(100% - var(--plm-hide-sidebar-width));
                 margin-left: var(--plm-hide-sidebar-width);

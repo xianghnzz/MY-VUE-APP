@@ -14,14 +14,11 @@ const activeMenu = computed(() => {
     return path;
 });
 </script>
-<script>
-alert(1);
-</script>
 
 <template>
     <div class="c-slidebar">
         <router-link to="/">
-            <div class="c-slidebar__logo">Recycle</div>
+            <div class="c-slidebar__logo">Audit</div>
         </router-link>
         <el-scrollbar>
             <el-menu
