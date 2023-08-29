@@ -97,7 +97,6 @@ const resolvePath = (routePath: string): string => {
             </div>
             <span v-if="item.meta && item.meta.title">{{ item.meta.title }}</span>
         </template>
-
         <template v-if="item.children">
             <sidebar-item
                 v-for="child in item.children"

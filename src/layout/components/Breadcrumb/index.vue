@@ -6,7 +6,6 @@ import { useAppStoreHook } from '@/store/app';
 const appStore = useAppStoreHook();
 const route = useRoute();
 const router = useRouter();
-
 const breadcrumbs = ref<RouteLocationMatched[]>([]);
 
 const getBreadcrumb = () => {
@@ -14,13 +13,11 @@ const getBreadcrumb = () => {
         return item.meta && item.meta.title && item.meta.breadcrumb !== false;
     });
 };
-
 const pathCompile = (path: string) => {
     const { params } = route;
     const toPath = compile(path);
     return toPath(params);
 };
-
 const handleLink = (item: RouteLocationMatched) => {
     const { redirect, path } = item;
     if (redirect) {
@@ -29,17 +26,6 @@ const handleLink = (item: RouteLocationMatched) => {
     }
     router.push(pathCompile(path));
 };
-
-watch(
-    () => route.path,
-    path => {
-        if (path.startsWith('/redirect/')) {
-            return;
-        }
-        getBreadcrumb();
-    }
-);
-getBreadcrumb();
 const computedTitle = computed(() => {
     return (data: any) => {
         if (appStore.language === 'en') {
@@ -49,13 +35,25 @@ const computedTitle = computed(() => {
         }
     };
 });
+watch(
+    () => route.path,
+    path => {
+        if (path.startsWith('/redirect/')) {
+            return;
+        }
+        getBreadcrumb();
+    }
+);
+onMounted(() => {
+    getBreadcrumb();
+});
 </script>
 
 <template>
     <el-breadcrumb class="c-breadcrumb">
         <el-breadcrumb-item
             v-for="(item, index) in breadcrumbs"
-            :key="item.path"
+            :key="index"
         >
             <span
                 v-if="item.redirect === 'noRedirect' || index === breadcrumbs.length - 1"
@@ -78,7 +76,8 @@ const computedTitle = computed(() => {
 
 .el-breadcrumb__inner,
 .el-breadcrumb__inner a {
-    font-weight: 400 !important;
+    font-weight: 400;
+    color: #97a8be;
 }
 
 .c-breadcrumb.el-breadcrumb {
@@ -90,8 +89,9 @@ const computedTitle = computed(() => {
     padding: 0 14px;
 
     .no-redirect {
-        color: #97a8be;
+        color: $black;
         cursor: text;
+        font-weight: 700;
     }
 }
 </style>
