@@ -14,6 +14,9 @@ const activeMenu = computed(() => {
     return path;
 });
 </script>
+<script>
+alert(1);
+</script>
 
 <template>
     <div class="c-slidebar">
