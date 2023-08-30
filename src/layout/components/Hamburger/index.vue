@@ -27,8 +27,8 @@ const toggleClick = () => {
 
 .c-humburger {
     width: 0;
-    height: 90px;
-    border-right: 20px solid rgba($color: $primary-dark, $alpha: 0.8);
+    height: var(--plm-hamburger-height);
+    border-right: var(--plm-hamburger-width) solid rgba($color: $primary-dark, $alpha: 0.8);
     border-top: 15px solid transparent;
     border-bottom: 15px solid transparent;
     cursor: pointer;

@@ -77,7 +77,7 @@ onMounted(() => {
 .el-breadcrumb__inner,
 .el-breadcrumb__inner a {
     font-weight: 400;
-    color: #97a8be;
+    color: $info-light-2;
 }
 
 .c-breadcrumb.el-breadcrumb {
@@ -86,7 +86,7 @@ onMounted(() => {
     line-height: var(--plm-breadcrumb-height);
     background: $white;
     box-shadow: $shadow-lighter;
-    padding: 0 14px;
+    padding: 0 $space-normal;
 
     .no-redirect {
         color: $black;

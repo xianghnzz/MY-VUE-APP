@@ -49,10 +49,10 @@ const appStore = useAppStoreHook();
             }
             :deep(.c-slidebar__logo) {
                 height: 46px !important;
-                font-size: 16px;
+                font-size: $normal;
             }
             :deep(.c-slidebar-item__icon) {
-                margin-left: 12px;
+                margin-left: $space-default;
                 background: rgba($color: #ffffff, $alpha: 0.5);
                 width: 50px;
                 height: 50px;
@@ -64,7 +64,7 @@ const appStore = useAppStoreHook();
             }
             :deep(.el-menu-item) {
                 text-align: center;
-                margin-top: 10px;
+                margin-top: $space-small;
                 border: none;
                 &.is-active {
                     background-color: transparent;
@@ -74,7 +74,7 @@ const appStore = useAppStoreHook();
                 }
             }
             :deep(.el-sub-menu) {
-                margin-top: 10px;
+                margin-top: $space-small;
             }
             :deep(.el-sub-menu__title) {
                 border: none;

@@ -26,7 +26,7 @@ const activeMenu = computed(() => {
                 :unique-opened="true"
                 :collapse="!appStore.sidebarIsOpen"
                 :collapse-transition="false"
-                background-color="#003a5a"
+                background-color="#00325a"
                 text-color="#ffffff"
                 active-text-color="#ffffff"
                 mode="vertical"
@@ -65,7 +65,7 @@ const activeMenu = computed(() => {
 }
 // 默认样式
 .c-slidebar {
-    background-color: #003a5a;
+    background-color: $primary;
     position: fixed;
     top: var(--plm-header-height);
     bottom: var(--plm-footer-height);
@@ -81,13 +81,13 @@ const activeMenu = computed(() => {
 
     &__logo {
         height: 80px;
-        font-size: 20px;
+        font-size: $x-big;
         color: $white;
         background-color: $primary-dark;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 24px;
+        font-size: $xx-big;
         transition: 0.28s;
     }
     .el-scrollbar {

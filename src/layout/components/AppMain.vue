@@ -26,6 +26,6 @@ const key = computed(() => {
 
 .c-app-main {
     height: calc(100% - var(--plm-breadcrumb-height));
-    padding: 14px;
+    padding: $space-normal;
 }
 </style>

@@ -115,7 +115,7 @@ const resolvePath = (routePath: string): string => {
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        margin-right: 12px;
+        margin-right: $space-default;
     }
 }
 </style>

@@ -41,7 +41,7 @@
     background-color: $white;
     width: 100%;
     height: var(--plm-header-height);
-    padding: 0 30px;
+    padding: 0 $space-xx-big;
 
     &__title {
         font-size: $xx-big;
