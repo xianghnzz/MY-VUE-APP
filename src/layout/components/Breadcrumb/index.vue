@@ -72,7 +72,7 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
-@import '@/styles/variables.scss';
+@use '@/styles/variables.scss' as *;
 
 .el-breadcrumb__inner,
 .el-breadcrumb__inner a {
@@ -85,7 +85,7 @@ onMounted(() => {
     height: var(--plm-breadcrumb-height);
     line-height: var(--plm-breadcrumb-height);
     background: $white;
-    box-shadow: 0 2px 10px 0 $dark-white;
+    box-shadow: $shadow-lighter;
     padding: 0 14px;
 
     .no-redirect {

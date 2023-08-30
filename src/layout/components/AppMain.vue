@@ -22,7 +22,7 @@ const key = computed(() => {
 </template>
 
 <style lang="scss">
-@import '@/styles/variables.scss';
+@use '@/styles/variables.scss' as *;
 
 .c-app-main {
     height: calc(100% - var(--plm-breadcrumb-height));

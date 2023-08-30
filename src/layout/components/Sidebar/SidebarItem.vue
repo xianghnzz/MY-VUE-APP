@@ -109,7 +109,7 @@ const resolvePath = (routePath: string): string => {
 </template>
 
 <style lang="scss" scoped>
-@import '@/styles/variables.scss';
+@use '@/styles/variables.scss' as *;
 .c-slidebar-item {
     &__icon {
         display: inline-flex;

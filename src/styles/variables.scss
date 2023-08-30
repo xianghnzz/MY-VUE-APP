@@ -10,6 +10,18 @@
     --plm-footer-height: 30px;
 }
 
+/** color*/
+$white: #ffffff;
+$black: #000000;
+$grey: #f4f4f5;
+$warning: #e7d000;
+$primary: #003a5a;
+$primary-dark: #00283e;
+$success: #67c23a;
+$danger: #f56c6c;
+$error: #f56c6c;
+$info: #909399;
+
 /** font-size*/
 $mini: 12px;
 $small: 14px;
@@ -19,10 +31,15 @@ $x-big: 20px;
 $xx-big: 24px;
 $xxx-big: 36px;
 $large: 60px;
-/** color*/
-$white: #ffffff;
-$black: #000000;
-$grey: #f4f4f5;
-$darke-yellow: #e7d000;
-$darker-blue: #00283e;
-$dark-white: #f1f1f1;
+/** space*/
+$space-small: 8px;
+$space-default: 12px;
+$space-big: 16px;
+$space-x-big: 20px;
+$space-xx-big: 30px;
+$space-xxx-big: 40px;
+/** shadow*/
+$shadow: var(--el-box-shadow);
+$shadow-light: var(--el-box-shadow-light);
+$shadow-lighter: var(--el-box-shadow-lighter);
+$shadow-dark: var(--el-box-shadow-dark);

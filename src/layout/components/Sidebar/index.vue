@@ -50,7 +50,7 @@ const activeMenu = computed(() => {
 </template>
 
 <style lang="scss" scoped>
-@import '@/styles/variables.scss';
+@use '@/styles/variables.scss' as *;
 @mixin tip-line {
     &::before {
         content: '';
@@ -60,7 +60,7 @@ const activeMenu = computed(() => {
         transform: translate(0, -50%);
         width: 2px;
         height: calc(100% - 10px);
-        background-color: $darke-yellow;
+        background: $warning;
     }
 }
 // 默认样式
@@ -83,7 +83,7 @@ const activeMenu = computed(() => {
         height: 80px;
         font-size: 20px;
         color: $white;
-        background-color: $darker-blue;
+        background-color: $primary-dark;
         display: flex;
         align-items: center;
         justify-content: center;

@@ -22,7 +22,7 @@
     </el-footer>
 </template>
 <style lang="scss" scoped>
-@import '@/styles/variables.scss';
+@use '@/styles/variables.scss' as *;
 
 .c-app-footer {
     height: var(--plm-footer-height);

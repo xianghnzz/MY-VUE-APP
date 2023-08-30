@@ -17,7 +17,7 @@ const appStore = useAppStoreHook();
 </template>
 
 <style lang="scss" scoped>
-@import '@/styles/variables.scss';
+@use '@/styles/variables.scss' as *;
 .c-layout {
     width: 100%;
     height: 100%;
