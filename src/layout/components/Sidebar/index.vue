@@ -26,7 +26,7 @@ const activeMenu = computed(() => {
                 :unique-opened="true"
                 :collapse="!appStore.sidebarIsOpen"
                 :collapse-transition="false"
-                background-color="#00325a"
+                background-color="#003a5a"
                 text-color="#ffffff"
                 active-text-color="#ffffff"
                 mode="vertical"

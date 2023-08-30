@@ -1,23 +1,43 @@
 <script setup lang="ts"></script>
 <template>
-    <el-row
-        justify="space-between"
-        align="middle"
-        class="c-app-header"
-    >
-        <el-col :span="12">
+    <div class="c-app-header">
+        <div class="c-app-header__aside">
+            <svg-icon
+                name="fav"
+                width="40px"
+                height="40px"
+            />
             <router-link to="/">
-                <div class="c-app-header__title">Vite Vue3</div>
+                <div class="c-app-header__title">POS Lifecycle Management</div>
             </router-link>
-        </el-col>
-        <el-col
-            class="c-app-header__user"
-            :span="12"
-        >
+        </div>
+
+        <div class="c-app-header__control">
             <el-dropdown trigger="click">
                 <el-avatar
+                    style="--el-avatar-bg-color: #00325a"
                     :size="30"
-                    class="c-app-header__user__avatar"
+                    shape="circle"
+                    class="c-app-header__control__avatar"
+                >
+                    <svg-icon
+                        name="blod-fill"
+                        width="20px"
+                        height="20px"
+                    />
+                </el-avatar>
+                <template #dropdown>
+                    <el-dropdown-menu>
+                        <el-dropdown-item>Portal</el-dropdown-item>
+                    </el-dropdown-menu>
+                </template>
+            </el-dropdown>
+            <el-dropdown trigger="click">
+                <el-avatar
+                    style="--el-avatar-bg-color: #00325a"
+                    :size="30"
+                    shape="circle"
+                    class="c-app-header__control__avatar"
                 >
                     <el-icon :size="20">
                         <i-ep-UserFilled />
@@ -32,8 +52,8 @@
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>
-        </el-col>
-    </el-row>
+        </div>
+    </div>
 </template>
 <style lang="scss" scoped>
 @use '@/styles/variables.scss' as *;
@@ -41,16 +61,27 @@
     background-color: $white;
     width: 100%;
     height: var(--plm-header-height);
-    padding: 0 $space-xx-big;
+    padding: 0 $space-xx-big 0 $space-big;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
+    &__aside {
+        display: flex;
+        align-items: center;
+    }
     &__title {
         font-size: $xx-big;
-        color: $black;
+        color: $info-dark;
+        margin-left: $space-small;
     }
 
-    &__user {
+    &__control {
         text-align: right;
-
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 0 10px;
         &__avatar {
             cursor: pointer;
         }
