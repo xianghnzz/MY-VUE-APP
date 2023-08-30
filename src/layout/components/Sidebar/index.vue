@@ -96,6 +96,7 @@ const activeMenu = computed(() => {
     .el-menu {
         border: none;
         width: 100%;
+        overflow: hidden;
     }
 
     :deep(.el-menu-item) {
