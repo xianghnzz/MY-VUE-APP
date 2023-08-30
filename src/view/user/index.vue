@@ -1,33 +1,34 @@
 <script setup lang="ts">
 const ruleFormRef: Ref = ref(null);
-const validateForm = reactive({
-    formAttrs: {
-        size: 'small'
-    },
-    columns: [
-        {
-            formItemAttrs: {
-                prop: 'username',
-                label: '用户名'
-            },
-            el: 'input',
-            elAttrs: {
-                placeholder: '请输入'
-            }
+const columns = reactive([
+    {
+        el: 'input',
+        formItemAttrs: {
+            prop: 'username',
+            label: '用户名'
         },
-        {
-            formItemAttrs: {
-                prop: 'pwd',
-                label: '密码'
-            },
-            el: 'select',
-            elAttrs: {
-                placeholder: '请选择',
-                options: []
-            }
+        elAttrs: {
+            placeholder: '请输入'
         }
-    ]
-});
+    },
+    {
+        el: 'select',
+        formItemAttrs: {
+            prop: 'pwd',
+            label: '密码'
+        },
+        elAttrs: {
+            placeholder: '请选择',
+            clearable: true,
+            options: [
+                {
+                    label: 'lixiang',
+                    value: '1'
+                }
+            ]
+        }
+    }
+]);
 const getFormData = () => {
     console.log(ruleFormRef.value.model, '====');
 };
@@ -40,7 +41,7 @@ const getFormData = () => {
             >用户</el-button
         >
         <PlmForm
-            v-bind="validateForm"
+            :columns="columns"
             ref="ruleFormRef"
         ></PlmForm>
     </div>

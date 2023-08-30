@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 interface Props {
     /** Form Attributes 具体参考element-plus官方文档*/
-    formAttrs: {
+    formAttrs?: {
         [key: string]: any;
     };
     /** 表单元素及formItem属性合集*/
@@ -22,6 +22,12 @@ interface Props {
 }
 /**组件属性 */
 const props = withDefaults(defineProps<Props>(), {
+    formAttrs: () => {
+        return {
+            'label-position': 'left',
+            'scroll-to-error': true
+        };
+    },
     columns: () => [],
     gutter: () => 10
 });
