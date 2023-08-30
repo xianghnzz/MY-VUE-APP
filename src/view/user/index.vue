@@ -1,5 +1,13 @@
 <script setup lang="ts"></script>
 <template>
-    <div>用户</div>
+    <div>
+        <el-button type="primary">用户</el-button>
+        <div class="test">dahahahahha</div>
+    </div>
 </template>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@use '@/styles/variables.scss' as *;
+.test {
+    color: $darke-yellow;
+}
+</style>

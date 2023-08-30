@@ -35,7 +35,7 @@ export default defineConfig({
         }),
         Components({
             resolvers: [
-                ElementPlusResolver(),
+                ElementPlusResolver({ importStyle: 'sass', directives: true, version: '2.1.5' }),
                 IconsResolver({
                     prefix: 'i',
                     enabledCollections: ['ep']
@@ -53,6 +53,13 @@ export default defineConfig({
     resolve: {
         alias: {
             '@': resolve(__dirname, './src')
+        }
+    },
+    css: {
+        preprocessorOptions: {
+            scss: {
+                additionalData: `@use "@/styles/element-plus.scss" as *;`
+            }
         }
     },
     base: './',
