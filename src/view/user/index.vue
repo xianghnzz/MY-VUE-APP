@@ -1,14 +1,20 @@
 <script setup lang="ts">
-const ruleFormRef: Ref = ref(null);
+import PlmForm from '@/components/plmForm.vue';
+const ruleFormRef = ref<InstanceType<typeof PlmForm> | null>(null);
 
-const columns = reactive([
+const columns = reactive<FormColumn[]>([
     {
         formItemAttrs: {
             prop: 'username',
             label: '用户名'
         },
         el: 'input',
-        placeholder: '请输入'
+        placeholder: '请输入',
+        methods: {
+            onChange: (val: string | number) => {
+                console.log(val, '=====');
+            }
+        }
     },
     {
         formItemAttrs: {
@@ -39,7 +45,7 @@ const columns = reactive([
     }
 ]);
 const getFormData = () => {
-    console.log(ruleFormRef.value.model, '====');
+    console.log(ruleFormRef.value?.model, '====');
 };
 </script>
 <template>

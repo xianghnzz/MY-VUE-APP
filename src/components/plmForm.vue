@@ -1,6 +1,7 @@
 <script lang="ts" setup>
+import type { FormInstance } from 'element-plus';
 /** 表单元素及formItem属性合集*/
-interface Column {
+interface FormColumn {
     span?: number; // 栅格布局,表单元素占几行
     el?: 'input' | 'number' | 'select' | 'checkbox' | 'radioGroup' | 'switch' | 'date' | 'text'; // 自定义的组件属性，用来渲染对应的表单元素
     methods?: {
@@ -19,17 +20,18 @@ interface Column {
     // input,select等表单元素属性, 具体参照element-plus官方文档
     [key: string]: any;
 }
-interface Props {
+interface Form {
     /** Form Attributes 具体参考element-plus官方文档*/
     formAttrs?: {
         [key: string]: any;
     };
-    columns?: Array<Column>;
+    columns?: Array<FormColumn>;
     /** 栅格布列之前的间隔 */
     gutter?: number;
 }
+
 /**组件属性 */
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Form>(), {
     formAttrs: () => {
         return {
             'label-position': 'left',
@@ -39,6 +41,7 @@ const props = withDefaults(defineProps<Props>(), {
     columns: () => [],
     gutter: () => 10
 });
+const ruleForm = ref<FormInstance | null>(null);
 /**表单数据对象 */
 const model = reactive<{
     [key: string]: any;
@@ -52,7 +55,7 @@ const getBindAttrs = computed(() => {
     };
 });
 /**去除输入框值的前后空格 */
-const trimVal = (event: FocusEvent, column: Column): void => {
+const trimVal = (event: FocusEvent, column: FormColumn): void => {
     const el = event.target as HTMLInputElement;
     model[column.formItemAttrs?.prop] = el.value.trim();
     return column.methods?.onBlur && column.methods.onBlur(event);
