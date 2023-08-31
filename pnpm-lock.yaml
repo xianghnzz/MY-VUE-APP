@@ -14,6 +14,9 @@ dependencies:
   axios:
     specifier: ^1.4.0
     version: 1.4.0
+  default-passive-events:
+    specifier: ^2.0.0
+    version: 2.0.0
   element-plus:
     specifier: ^2.3.9
     version: 2.3.9(vue@3.3.4)
@@ -1296,6 +1299,10 @@ packages:
       execa: 7.2.0
       titleize: 3.0.0
     dev: true
+
+  /default-passive-events@2.0.0:
+    resolution: {integrity: sha512-eMtt76GpDVngZQ3ocgvRcNCklUMwID1PaNbCNxfpDXuiOXttSh0HzBbda1HU9SIUsDc02vb7g9+3I5tlqe/qMQ==}
+    dev: false
 
   /define-lazy-prop@3.0.0:
     resolution: {integrity: sha512-N+MeXYoqr3pOgn8xfyRPREN7gHakLYjhsHhWGT3fWAiL4IkAt0iDw14QiiEm2bE30c5XX5q0FtAA3CK5f9/BUg==}

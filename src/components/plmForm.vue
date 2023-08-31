@@ -1,22 +1,28 @@
 <script lang="ts" setup>
+/** 表单元素及formItem属性合集*/
+interface Column {
+    span?: number; // 栅格布局,表单元素占几行
+    el?: 'input' | 'number' | 'select' | 'checkbox' | 'radioGroup' | 'switch' | 'date' | 'text'; // 自定义的组件属性，用来渲染对应的表单元素
+    methods?: {
+        onBlur?: (event: FocusEvent) => void;
+        onFocus?: (event: FocusEvent) => void;
+        onChange?: (value: string | number) => void;
+        onInput?: (value: string | number) => void;
+        onClear?: () => void;
+    };
+    formItemAttrs?: {
+        // Form Item Attributes, 具体参照element-plus官方文档
+        [key: string]: any;
+    };
+    // input,select等表单元素属性, 具体参照element-plus官方文档
+    [key: string]: any;
+}
 interface Props {
     /** Form Attributes 具体参考element-plus官方文档*/
     formAttrs?: {
         [key: string]: any;
     };
-    /** 表单元素及formItem属性合集*/
-    columns?: Array<{
-        span?: number; // 栅格布局,表单元素占几行
-        el?: 'input' | 'number' | 'select' | 'checkbox' | 'radioGroup' | 'switch' | 'date' | 'text'; // 自定义的组件属性，用来渲染对应的表单元素
-        formItemAttrs?: {
-            // Form Item Attributes, 具体参照element-plus官方文档
-            [key: string]: any;
-        };
-        elAttrs?: {
-            // input,select等表单元素属性, 具体参照element-plus官方文档
-            [key: string]: any;
-        };
-    }>;
+    columns?: Array<Column>;
     /** 栅格布列之前的间隔 */
     gutter?: number;
 }
@@ -35,6 +41,20 @@ const props = withDefaults(defineProps<Props>(), {
 const model = reactive<{
     [key: string]: any;
 }>({});
+/**获取元素需要绑定的属性对象 */
+const getBindAttrs = computed(() => {
+    return (column: any, bool: boolean = false) => {
+        const { formItemAttrs, ...elAttrs } = column;
+        if (bool) return formItemAttrs;
+        return elAttrs;
+    };
+});
+/**去除输入框值的前后空格 */
+const trimVal = (event: FocusEvent, column: Column): void => {
+    const el = event.target as HTMLInputElement;
+    model[column.formItemAttrs?.prop] = el.value.trim();
+    return column.methods?.onBlur && column.methods.onBlur(event);
+};
 /** */
 /**导出组件内数据,用于在组件外部调用 */
 defineExpose({
@@ -53,18 +73,37 @@ defineExpose({
                     :key="index"
                     :span="column.span || 6"
                 >
-                    <el-form-item v-bind="column.formItemAttrs">
+                    <el-form-item v-bind="getBindAttrs(column, true)">
                         <!-- input -->
                         <template v-if="column.el === 'input'">
                             <el-input
-                                v-bind="column.elAttrs"
+                                v-bind="getBindAttrs(column)"
                                 v-model="model[column.formItemAttrs?.prop]"
+                                @blur="(event: FocusEvent) => trimVal(event, column)"
+                                @focus="column.methods?.onFocus"
+                                @change="column.methods?.onChange"
+                                @input="column.methods?.onInput"
+                                @clear="column.methods?.onClear"
                             />
                         </template>
                         <!-- select -->
                         <template v-if="column.el === 'select'">
+                            <!-- 单选 -->
                             <el-select-v2
-                                v-bind="column.elAttrs"
+                                v-if="!column.elAttrs?.multiple"
+                                :clearable="true"
+                                :filterable="true"
+                                v-bind="getBindAttrs(column)"
+                                v-model="model[column.formItemAttrs?.prop]"
+                            />
+                            <!-- 多选 -->
+                            <el-select-v2
+                                v-else
+                                :clearable="true"
+                                :collapse-tags="true"
+                                :collapse-tags-tooltip="true"
+                                :filterable="true"
+                                v-bind="getBindAttrs(column)"
                                 v-model="model[column.formItemAttrs?.prop]"
                             />
                         </template>
@@ -75,4 +114,12 @@ defineExpose({
         </el-form>
     </div>
 </template>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@use '@/styles/variables.scss' as *;
+.c-form {
+    .el-input,
+    .el-select-v2 {
+        width: 100%;
+    }
+}
+</style>
