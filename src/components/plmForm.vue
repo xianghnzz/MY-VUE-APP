@@ -6,9 +6,11 @@ interface Column {
     methods?: {
         onBlur?: (event: FocusEvent) => void;
         onFocus?: (event: FocusEvent) => void;
-        onChange?: (value: string | number) => void;
-        onInput?: (value: string | number) => void;
+        onChange?: (value: any) => void;
+        onInput?: (value: any) => void;
         onClear?: () => void;
+        visibleChange?: (value: boolean) => void;
+        removeTag?: (value: any) => void;
     };
     formItemAttrs?: {
         // Form Item Attributes, 具体参照element-plus官方文档
@@ -95,6 +97,12 @@ defineExpose({
                                 :filterable="true"
                                 v-bind="getBindAttrs(column)"
                                 v-model="model[column.formItemAttrs?.prop]"
+                                @change="column.methods?.onChange"
+                                @visible-change="column.methods?.visibleChange"
+                                @remove-tag="column.methods?.removeTag"
+                                @clear="column.methods?.onClear"
+                                @blur="(event: FocusEvent) => trimVal(event, column)"
+                                @focus="column.methods?.onFocus"
                             />
                             <!-- 多选 -->
                             <el-select-v2
@@ -105,6 +113,12 @@ defineExpose({
                                 :filterable="true"
                                 v-bind="getBindAttrs(column)"
                                 v-model="model[column.formItemAttrs?.prop]"
+                                @change="column.methods?.onChange"
+                                @visible-change="column.methods?.visibleChange"
+                                @remove-tag="column.methods?.removeTag"
+                                @clear="column.methods?.onClear"
+                                @blur="(event: FocusEvent) => trimVal(event, column)"
+                                @focus="column.methods?.onFocus"
                             />
                         </template>
                     </el-form-item>
