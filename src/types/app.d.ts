@@ -5,6 +5,7 @@ declare global {
     interface FormColumn {
         span?: number; // 栅格布局,表单元素占几行
         el?: 'input' | 'number' | 'select' | 'checkbox' | 'radioGroup' | 'switch' | 'date' | 'text'; // 自定义的组件属性，用来渲染对应的表单元素
+        defaultValue?: any; // 默认值
         methods?: {
             onBlur?: (event: FocusEvent) => void;
             onFocus?: (event: FocusEvent) => void;

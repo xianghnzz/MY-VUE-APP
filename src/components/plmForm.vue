@@ -4,6 +4,7 @@ import type { FormInstance } from 'element-plus';
 interface FormColumn {
     span?: number; // 栅格布局,表单元素占几行
     el?: 'input' | 'number' | 'select' | 'checkbox' | 'radioGroup' | 'switch' | 'date' | 'text'; // 自定义的组件属性，用来渲染对应的表单元素
+    defaultValue?: any; // 默认值
     methods?: {
         onBlur?: (event: FocusEvent) => void;
         onFocus?: (event: FocusEvent) => void;
@@ -46,6 +47,12 @@ const ruleForm = ref<FormInstance | null>(null);
 const model = reactive<{
     [key: string]: any;
 }>({});
+watchEffect(() => {
+    for (const item of props.columns) {
+        if (typeof item.defaultValue !== 'undefined') model[item.formItemAttrs?.prop] = item.defaultValue;
+    }
+});
+
 /**获取元素需要绑定的属性对象 */
 const getBindAttrs = computed(() => {
     return (column: any, bool: boolean = false) => {
@@ -122,6 +129,14 @@ defineExpose({
                                 @clear="column.methods?.onClear"
                                 @blur="(event: FocusEvent) => trimVal(event, column)"
                                 @focus="column.methods?.onFocus"
+                            />
+                        </template>
+                        <!-- 复选框 -->
+                        <template v-if="column.el === 'checkbox'">
+                            <el-checkbox
+                                v-bind="getBindAttrs(column)"
+                                v-model="model[column.formItemAttrs?.prop]"
+                                @change="column.methods?.onChange"
                             />
                         </template>
                     </el-form-item>

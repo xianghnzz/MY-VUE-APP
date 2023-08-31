@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import PlmForm from '@/components/plmForm.vue';
 const ruleFormRef = ref<InstanceType<typeof PlmForm> | null>(null);
-
 const columns = reactive<FormColumn[]>([
     {
         formItemAttrs: {
@@ -28,20 +27,18 @@ const columns = reactive<FormColumn[]>([
             {
                 label: 'lixiang',
                 value: '1'
-            },
-            {
-                label: 'jiajiajia',
-                value: '2'
-            },
-            {
-                label: 'mama',
-                value: '3'
-            },
-            {
-                label: 'baba',
-                value: '4'
             }
         ]
+    },
+    {
+        formItemAttrs: {
+            prop: 'isEnable',
+            label: '是否启用'
+        },
+        el: 'checkbox',
+        'true-label': 1,
+        'false-label': 0,
+        defaultValue: 0
     }
 ]);
 const getFormData = () => {
