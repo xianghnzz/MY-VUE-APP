@@ -1,12 +1,13 @@
 <script lang="ts" setup>
-import type { FormInstance } from 'element-plus';
+import { FormInstance } from 'element-plus';
+import { Component } from 'vue';
 /** 表单元素及formItem属性合集*/
 interface FormColumn {
     span?: number; // 栅格布局,表单元素占几行
     el?: 'input' | 'number' | 'select' | 'checkbox' | 'checkboxGroup' | 'radioGroup' | 'switch' | 'date' | 'text'; // 自定义的组件属性，用来渲染对应的表单元素
     defaultValue?: any; // 默认值
     slot?: boolean; // 使用插槽
-    render?: boolean; // 使用render函数
+    render?: () => Component; // 使用render函数
     methods?: {
         onBlur?: (event: FocusEvent) => void;
         onFocus?: (event: FocusEvent) => void;
@@ -71,7 +72,6 @@ const trimVal = (event: FocusEvent, column: FormColumn): void => {
     model[column.formItemAttrs?.prop] = el.value.trim();
     return column.methods?.onBlur && column.methods.onBlur(event);
 };
-/** */
 /**导出组件内数据,用于在组件外部调用 */
 defineExpose({
     model
@@ -200,10 +200,16 @@ defineExpose({
                         </template>
                         <!-- 插槽没有统计到的或者有特殊需求的表单元素 -->
                         <template
-                            v-if="column.slot"
+                            v-if="column.slot && !column.render"
                             #default
                         >
                             <slot :name="column.formItemAttrs?.prop"> </slot>
+                        </template>
+                        <!-- 使用render函数 -->
+                        <template v-if="column.render && !column.slot">
+                            <!-- {{ column.render() }} -->
+                            <!-- <div v-html="column.render()"></div> -->
+                            <!-- column.render() -->
                         </template>
                     </el-form-item>
                 </el-col>
