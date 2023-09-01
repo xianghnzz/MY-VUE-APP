@@ -11,8 +11,10 @@ interface FormColumn {
         onChange?: (value: any) => void;
         onInput?: (value: any) => void;
         onClear?: () => void;
-        visibleChange?: (value: boolean) => void;
+        visibleChange?: (visibility: boolean) => void;
         removeTag?: (value: any) => void;
+        calendarChange?: (value: Date[]) => void;
+        panelChange?: (date: any, model: any, view: any) => void;
     };
     formItemAttrs?: {
         // Form Item Attributes, 具体参照element-plus官方文档
@@ -111,7 +113,7 @@ defineExpose({
                                 @visible-change="column.methods?.visibleChange"
                                 @remove-tag="column.methods?.removeTag"
                                 @clear="column.methods?.onClear"
-                                @blur="(event: FocusEvent) => trimVal(event, column)"
+                                @blur="column.methods?.onBlur"
                                 @focus="column.methods?.onFocus"
                             />
                             <!-- 多选 -->
@@ -127,7 +129,7 @@ defineExpose({
                                 @visible-change="column.methods?.visibleChange"
                                 @remove-tag="column.methods?.removeTag"
                                 @clear="column.methods?.onClear"
-                                @blur="(event: FocusEvent) => trimVal(event, column)"
+                                @blur="column.methods?.onBlur"
                                 @focus="column.methods?.onFocus"
                             />
                         </template>
@@ -153,6 +155,42 @@ defineExpose({
                                     >{{ item.label }}</el-checkbox
                                 >
                             </el-checkbox-group>
+                        </template>
+                        <!-- 单选框组 -->
+                        <template v-if="column.el === 'radioGroup'">
+                            <el-radio-group
+                                v-bind="getBindAttrs(column)"
+                                v-model="model[column.formItemAttrs?.prop]"
+                                @change="column.methods?.onChange"
+                            >
+                                <el-radio
+                                    v-for="radio in column.options"
+                                    :key="radio.value"
+                                    :label="radio.value"
+                                >
+                                    {{ radio.label }}
+                                </el-radio>
+                            </el-radio-group>
+                        </template>
+                        <!-- 日期控件 -->
+                        <template v-if="column.el === 'date'">
+                            <el-date-picker
+                                v-bind="getBindAttrs(column)"
+                                v-model="model[column.formItemAttrs?.prop]"
+                                @change="column.methods?.onChange"
+                                @blur="column.methods?.onBlur"
+                                @focus="column.methods?.onFocus"
+                                @calendar-change="column.methods?.calendarChange"
+                                @panel-change="column.methods?.panelChange"
+                            />
+                        </template>
+                        <!-- switch -->
+                        <template v-if="column.el === 'switch'">
+                            <el-switch
+                                v-bind="getBindAttrs(column)"
+                                v-model="model[column.formItemAttrs?.prop]"
+                                @change="column.methods?.onChange"
+                            />
                         </template>
                     </el-form-item>
                 </el-col>

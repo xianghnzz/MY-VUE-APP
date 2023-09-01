@@ -60,6 +60,42 @@ const columns = reactive<FormColumn[]>([
                 value: 3
             }
         ]
+    },
+    {
+        formItemAttrs: {
+            prop: 'date',
+            label: '日期'
+        },
+        el: 'date',
+        type: 'datetime'
+    },
+    {
+        formItemAttrs: {
+            prop: 'radio',
+            label: '单选'
+        },
+        el: 'radioGroup',
+        options: [
+            {
+                label: '郑州',
+                value: 1
+            },
+            {
+                label: '上海',
+                value: 2
+            },
+            {
+                label: '北京',
+                value: 3
+            }
+        ]
+    },
+    {
+        formItemAttrs: {
+            prop: 'swicth',
+            label: '开关'
+        },
+        el: 'switch'
     }
 ]);
 const getFormData = () => {
