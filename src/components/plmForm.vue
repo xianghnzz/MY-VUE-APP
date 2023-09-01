@@ -3,7 +3,7 @@ import type { FormInstance } from 'element-plus';
 /** 表单元素及formItem属性合集*/
 interface FormColumn {
     span?: number; // 栅格布局,表单元素占几行
-    el?: 'input' | 'number' | 'select' | 'checkbox' | 'radioGroup' | 'switch' | 'date' | 'text'; // 自定义的组件属性，用来渲染对应的表单元素
+    el?: 'input' | 'number' | 'select' | 'checkbox' | 'checkboxGroup' | 'radioGroup' | 'switch' | 'date' | 'text'; // 自定义的组件属性，用来渲染对应的表单元素
     defaultValue?: any; // 默认值
     methods?: {
         onBlur?: (event: FocusEvent) => void;
@@ -131,13 +131,28 @@ defineExpose({
                                 @focus="column.methods?.onFocus"
                             />
                         </template>
-                        <!-- 复选框 -->
+                        <!-- 单个复选框 -->
                         <template v-if="column.el === 'checkbox'">
                             <el-checkbox
                                 v-bind="getBindAttrs(column)"
                                 v-model="model[column.formItemAttrs?.prop]"
                                 @change="column.methods?.onChange"
                             />
+                        </template>
+                        <!-- 复选框group -->
+                        <template v-if="column.el === 'checkboxGroup'">
+                            <el-checkbox-group
+                                v-bind="getBindAttrs(column)"
+                                v-model="model[column.formItemAttrs?.prop]"
+                                @change="column.methods?.onChange"
+                            >
+                                <el-checkbox
+                                    v-for="item in column.options"
+                                    :key="item.value"
+                                    :label="item.value"
+                                    >{{ item.label }}</el-checkbox
+                                >
+                            </el-checkbox-group>
                         </template>
                     </el-form-item>
                 </el-col>

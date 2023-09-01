@@ -39,6 +39,27 @@ const columns = reactive<FormColumn[]>([
         'true-label': 1,
         'false-label': 0,
         defaultValue: 0
+    },
+    {
+        formItemAttrs: {
+            prop: 'city',
+            label: '城市'
+        },
+        el: 'checkboxGroup',
+        options: [
+            {
+                label: '郑州',
+                value: 1
+            },
+            {
+                label: '上海',
+                value: 2
+            },
+            {
+                label: '北京',
+                value: 3
+            }
+        ]
     }
 ]);
 const getFormData = () => {
