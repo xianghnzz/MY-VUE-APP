@@ -91,6 +91,7 @@ defineExpose({
                         <!-- input -->
                         <template v-if="column.el === 'input'">
                             <el-input
+                                placeholder="请输入"
                                 v-bind="getBindAttrs(column)"
                                 v-model="model[column.formItemAttrs?.prop]"
                                 @blur="(event: FocusEvent) => trimVal(event, column)"
@@ -105,6 +106,7 @@ defineExpose({
                             <!-- 单选 -->
                             <el-select-v2
                                 v-if="!column.elAttrs?.multiple"
+                                placeholder="请选择"
                                 :clearable="true"
                                 :filterable="true"
                                 v-bind="getBindAttrs(column)"
@@ -119,6 +121,7 @@ defineExpose({
                             <!-- 多选 -->
                             <el-select-v2
                                 v-else
+                                placeholder="请选择"
                                 :clearable="true"
                                 :collapse-tags="true"
                                 :collapse-tags-tooltip="true"
@@ -175,6 +178,7 @@ defineExpose({
                         <!-- 日期控件 -->
                         <template v-if="column.el === 'date'">
                             <el-date-picker
+                                placeholder="请选择"
                                 v-bind="getBindAttrs(column)"
                                 v-model="model[column.formItemAttrs?.prop]"
                                 @change="column.methods?.onChange"
@@ -202,8 +206,10 @@ defineExpose({
 <style lang="scss" scoped>
 @use '@/styles/variables.scss' as *;
 .c-form {
-    .el-input,
-    .el-select-v2 {
+    :deep(.el-input) {
+        width: 100%;
+    }
+    :deep(.el-select-v2) {
         width: 100%;
     }
 }
