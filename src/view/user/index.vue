@@ -96,6 +96,13 @@ const columns = reactive<FormColumn[]>([
             label: '开关'
         },
         el: 'switch'
+    },
+    {
+        formItemAttrs: {
+            prop: 'slotprop',
+            label: '插槽'
+        },
+        slot: true
     }
 ]);
 const getFormData = () => {
@@ -112,7 +119,11 @@ const getFormData = () => {
         <PlmForm
             :columns="columns"
             ref="ruleFormRef"
-        ></PlmForm>
+        >
+            <template #slotprop>
+                <div>插槽</div>
+            </template>
+        </PlmForm>
     </div>
 </template>
 <style lang="scss" scoped>
