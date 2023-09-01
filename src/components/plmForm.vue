@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script lang="tsx" setup>
 import { FormInstance } from 'element-plus';
 import { Component } from 'vue';
 /** 表单元素及formItem属性合集*/
@@ -35,7 +35,6 @@ interface Form {
     /** 栅格布列之前的间隔 */
     gutter?: number;
 }
-
 /**组件属性 */
 const props = withDefaults(defineProps<Form>(), {
     formAttrs: () => {
@@ -209,7 +208,7 @@ defineExpose({
                         <template v-if="column.render && !column.slot">
                             <!-- {{ column.render() }} -->
                             <!-- <div v-html="column.render()"></div> -->
-                            <!-- column.render() -->
+                            {{ column.render }}
                         </template>
                     </el-form-item>
                 </el-col>

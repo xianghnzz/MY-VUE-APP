@@ -1,6 +1,5 @@
-<script setup lang="ts">
+<script setup lang="tsx">
 import PlmForm from '@/components/plmForm.vue';
-import vnode from '@/utils/render.jsx';
 const ruleFormRef = ref<InstanceType<typeof PlmForm> | null>(null);
 const columns = reactive<FormColumn[]>([
     {
@@ -109,8 +108,8 @@ const columns = reactive<FormColumn[]>([
         formItemAttrs: {
             prop: 'customer',
             label: 'render'
-        },
-        render: () => vnode
+        }
+        // render: () => div
     }
 ]);
 const getFormData = () => {
