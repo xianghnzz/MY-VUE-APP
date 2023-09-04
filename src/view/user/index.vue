@@ -1,4 +1,4 @@
-<script setup lang="tsx">
+<script setup lang="ts">
 import PlmForm from '@/components/plmForm.vue';
 const ruleFormRef = ref<InstanceType<typeof PlmForm> | null>(null);
 const columns = reactive<FormColumn[]>([
@@ -103,17 +103,6 @@ const columns = reactive<FormColumn[]>([
             label: '插槽'
         },
         slot: true
-    },
-    {
-        formItemAttrs: {
-            prop: 'customer',
-            label: 'render'
-        },
-        render: defineComponent({
-            render() {
-                return <div>123</div>;
-            }
-        })
     }
 ]);
 const getFormData = () => {

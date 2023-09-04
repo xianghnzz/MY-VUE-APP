@@ -1,4 +1,4 @@
-<script lang="tsx" setup>
+<script lang="ts" setup>
 import { FormInstance } from 'element-plus';
 /** 表单元素及formItem属性合集*/
 interface FormColumn {
@@ -6,7 +6,6 @@ interface FormColumn {
     el?: 'input' | 'number' | 'select' | 'checkbox' | 'checkboxGroup' | 'radioGroup' | 'switch' | 'date' | 'text'; // 自定义的组件属性，用来渲染对应的表单元素
     defaultValue?: any; // 默认值
     slot?: boolean; // 使用插槽
-    render?: Component; // 使用render函数
     methods?: {
         onBlur?: (event: FocusEvent) => void;
         onFocus?: (event: FocusEvent) => void;
@@ -203,10 +202,6 @@ defineExpose({
                             #default
                         >
                             <slot :name="column.formItemAttrs?.prop"> </slot>
-                        </template>
-                        <!-- 使用render函数 -->
-                        <template v-if="column.render && !column.slot">
-                            <Component :is="column.render" />
                         </template>
                     </el-form-item>
                 </el-col>
