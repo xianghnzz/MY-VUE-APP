@@ -1,13 +1,12 @@
 <script lang="tsx" setup>
 import { FormInstance } from 'element-plus';
-import { Component } from 'vue';
 /** 表单元素及formItem属性合集*/
 interface FormColumn {
     span?: number; // 栅格布局,表单元素占几行
     el?: 'input' | 'number' | 'select' | 'checkbox' | 'checkboxGroup' | 'radioGroup' | 'switch' | 'date' | 'text'; // 自定义的组件属性，用来渲染对应的表单元素
     defaultValue?: any; // 默认值
     slot?: boolean; // 使用插槽
-    render?: () => Component; // 使用render函数
+    render?: any; // 使用render函数
     methods?: {
         onBlur?: (event: FocusEvent) => void;
         onFocus?: (event: FocusEvent) => void;
@@ -46,6 +45,7 @@ const props = withDefaults(defineProps<Form>(), {
     columns: () => [],
     gutter: () => 10
 });
+
 const ruleForm = ref<FormInstance | null>(null);
 /**表单数据对象 */
 const model = reactive<{
@@ -208,7 +208,6 @@ defineExpose({
                         <template v-if="column.render && !column.slot">
                             <!-- {{ column.render() }} -->
                             <!-- <div v-html="column.render()"></div> -->
-                            {{ column.render }}
                         </template>
                     </el-form-item>
                 </el-col>

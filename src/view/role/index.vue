@@ -1,7 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="tsx">
+// 返回变量
+const test = <div>12321</div>;
+</script>
 <template>
-    <div>角色</div>
+    <test />
 </template>
+
 <style lang="scss" scoped>
 @use '@/styles/variables.scss' as *;
 </style>
