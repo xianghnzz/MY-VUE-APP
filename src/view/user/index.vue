@@ -108,8 +108,12 @@ const columns = reactive<FormColumn[]>([
         formItemAttrs: {
             prop: 'customer',
             label: 'render'
-        }
-        // render: () => div
+        },
+        render: defineComponent({
+            render() {
+                return <div>123</div>;
+            }
+        })
     }
 ]);
 const getFormData = () => {

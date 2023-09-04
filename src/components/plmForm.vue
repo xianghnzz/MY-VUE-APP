@@ -6,7 +6,7 @@ interface FormColumn {
     el?: 'input' | 'number' | 'select' | 'checkbox' | 'checkboxGroup' | 'radioGroup' | 'switch' | 'date' | 'text'; // 自定义的组件属性，用来渲染对应的表单元素
     defaultValue?: any; // 默认值
     slot?: boolean; // 使用插槽
-    render?: any; // 使用render函数
+    render?: Component; // 使用render函数
     methods?: {
         onBlur?: (event: FocusEvent) => void;
         onFocus?: (event: FocusEvent) => void;
@@ -206,8 +206,7 @@ defineExpose({
                         </template>
                         <!-- 使用render函数 -->
                         <template v-if="column.render && !column.slot">
-                            <!-- {{ column.render() }} -->
-                            <!-- <div v-html="column.render()"></div> -->
+                            <Component :is="column.render" />
                         </template>
                     </el-form-item>
                 </el-col>

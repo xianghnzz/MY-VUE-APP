@@ -1,9 +1,12 @@
 <script setup lang="tsx">
-// 返回变量
-const test = <div>12321</div>;
+const TestComponent: any = {
+    render() {
+        return <div>{123}</div>;
+    }
+};
 </script>
 <template>
-    <test />
+    <TestComponent />
 </template>
 
 <style lang="scss" scoped>
