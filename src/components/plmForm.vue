@@ -1,3 +1,4 @@
+<!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <script lang="ts" setup>
 import { FormInstance } from 'element-plus';
 /** 表单元素及formItem属性合集*/
@@ -17,30 +18,21 @@ interface FormColumn {
         calendarChange?: (value: Date[]) => void;
         panelChange?: (date: any, model: any, view: any) => void;
     };
-    formItemAttrs?: {
-        // Form Item Attributes, 具体参照element-plus官方文档
-        [key: string]: any;
-    };
-    // input,select等表单元素属性, 具体参照element-plus官方文档
+    // Form Item Attributes && input,select等表单元素属性, 具体参照element-plus官方文档
     [key: string]: any;
 }
 interface Form {
-    /** Form Attributes 具体参考element-plus官方文档*/
-    formAttrs?: {
-        [key: string]: any;
-    };
+    // 单元设置
     columns?: Array<FormColumn>;
     /** 栅格布列之前的间隔 */
     gutter?: number;
+    /** Form Attributes 具体参考element-plus官方文档*/
+    [key: string]: any;
 }
 /**组件属性 */
 const props = withDefaults(defineProps<Form>(), {
-    formAttrs: () => {
-        return {
-            'label-position': 'left',
-            'scroll-to-error': true
-        };
-    },
+    'label-position': 'left',
+    'scroll-to-error': true,
     columns: () => [],
     gutter: () => 10
 });
@@ -58,10 +50,53 @@ watchEffect(() => {
 
 /**获取元素需要绑定的属性对象 */
 const getBindAttrs = computed(() => {
-    return (column: any, bool: boolean = false) => {
-        const { formItemAttrs, ...elAttrs } = column;
-        if (bool) return formItemAttrs;
-        return elAttrs;
+    return (column?: any, type?: string) => {
+        if (!column && !type) {
+            const { columns, gutter, ...formAttrs } = props;
+            return formAttrs;
+        }
+        if (type === 'item') {
+            const {
+                prop,
+                label,
+                'label-width': labelWidth,
+                required,
+                rules,
+                error,
+                'show-message': showMessage,
+                'inline-message': inlineMessage,
+                size,
+                'validate-status': validateStatus
+            } = column;
+            const formItemAttrs = { prop, label, labelWidth, required, rules, error, showMessage, inlineMessage, size, validateStatus };
+            return formItemAttrs;
+        } else if (type === 'checkboxGroup' || type === 'radioGroup') {
+            const {
+                el,
+                span,
+                defaultValue,
+                slot,
+                render,
+                methods,
+                prop,
+                label,
+                labelWidth,
+                required,
+                rules,
+                error,
+                showMessage,
+                inlineMessage,
+                size,
+                validateStatus,
+                options,
+                ...elAttrs
+            } = column;
+            return elAttrs;
+        } else {
+            const { el, span, defaultValue, slot, render, methods, prop, label, labelWidth, required, rules, error, showMessage, inlineMessage, size, validateStatus, ...elAttrs } =
+                column;
+            return elAttrs;
+        }
     };
 });
 /**去除输入框值的前后空格 */
@@ -78,16 +113,16 @@ defineExpose({
 <template>
     <div class="c-form">
         <el-form
-            v-bind="{ ...props.formAttrs, model }"
+            v-bind="getBindAttrs"
             ref="ruleForm"
         >
-            <el-row :gutter="gutter">
+            <el-row :gutter="props.gutter">
                 <el-col
                     v-for="(column, index) in props.columns"
                     :key="index"
                     :span="column.span || 6"
                 >
-                    <el-form-item v-bind="getBindAttrs(column, true)">
+                    <el-form-item v-bind="getBindAttrs(column, 'item')">
                         <!-- input -->
                         <template v-if="column.el === 'input'">
                             <el-input
@@ -147,7 +182,7 @@ defineExpose({
                         <!-- 复选框group -->
                         <template v-if="column.el === 'checkboxGroup'">
                             <el-checkbox-group
-                                v-bind="getBindAttrs(column)"
+                                v-bind="getBindAttrs(column, 'checkboxGroup')"
                                 v-model="model[column.formItemAttrs?.prop]"
                                 @change="column.methods?.onChange"
                             >
@@ -162,7 +197,7 @@ defineExpose({
                         <!-- 单选框组 -->
                         <template v-if="column.el === 'radioGroup'">
                             <el-radio-group
-                                v-bind="getBindAttrs(column)"
+                                v-bind="getBindAttrs(column, 'radioGroup')"
                                 v-model="model[column.formItemAttrs?.prop]"
                                 @change="column.methods?.onChange"
                             >
