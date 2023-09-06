@@ -1,12 +1,11 @@
-<script setup lang="ts">
+<script setup lang="tsx">
 import PlmForm from '@/components/plmForm.vue';
 const ruleFormRef = ref<InstanceType<typeof PlmForm> | null>(null);
+const model = reactive({});
 const columns = reactive<FormColumn[]>([
     {
-        formItemAttrs: {
-            prop: 'username',
-            label: '用户名'
-        },
+        prop: 'username',
+        label: '用户名',
         el: 'input',
         placeholder: '请输入',
         methods: {
@@ -16,10 +15,8 @@ const columns = reactive<FormColumn[]>([
         }
     },
     {
-        formItemAttrs: {
-            prop: 'pwd',
-            label: '密码'
-        },
+        prop: 'pwd',
+        label: '密码',
         el: 'select',
         placeholder: '请选择',
         multiple: true,
@@ -31,20 +28,16 @@ const columns = reactive<FormColumn[]>([
         ]
     },
     {
-        formItemAttrs: {
-            prop: 'isEnable',
-            label: '是否启用'
-        },
+        prop: 'isEnable',
+        label: '是否启用',
         el: 'checkbox',
         'true-label': 1,
         'false-label': 0,
         defaultValue: 0
     },
     {
-        formItemAttrs: {
-            prop: 'city',
-            label: '城市'
-        },
+        prop: 'city',
+        label: '城市',
         el: 'checkboxGroup',
         options: [
             {
@@ -62,18 +55,14 @@ const columns = reactive<FormColumn[]>([
         ]
     },
     {
-        formItemAttrs: {
-            prop: 'date',
-            label: '日期'
-        },
+        prop: 'date',
+        label: '日期',
         el: 'date',
         type: 'datetime'
     },
     {
-        formItemAttrs: {
-            prop: 'radio',
-            label: '单选'
-        },
+        prop: 'radio',
+        label: '单选',
         el: 'radioGroup',
         options: [
             {
@@ -91,20 +80,24 @@ const columns = reactive<FormColumn[]>([
         ]
     },
     {
-        formItemAttrs: {
-            prop: 'swicth',
-            label: '开关'
-        },
+        prop: 'swicth',
+        label: '开关',
         el: 'switch'
     },
     {
-        formItemAttrs: {
-            prop: 'slotprop',
-            label: '插槽'
-        },
+        prop: 'slotprop',
+        label: '插槽',
         slot: true
+    },
+    {
+        prop: 'renderProp',
+        label: 'render',
+        render: () => {
+            return <div>123</div>;
+        }
     }
 ]);
+
 const getFormData = () => {
     console.log(ruleFormRef.value?.model, '====');
 };
@@ -117,6 +110,7 @@ const getFormData = () => {
             >用户</el-button
         >
         <PlmForm
+            v-model:model="model"
             :columns="columns"
             ref="ruleFormRef"
         >
