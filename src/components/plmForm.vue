@@ -1,4 +1,3 @@
-<!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <script lang="ts" setup>
 import { FormInstance } from 'element-plus';
 /** 表单元素及formItem属性合集*/
@@ -24,91 +23,85 @@ interface FormColumn {
 }
 interface Form {
     // 单元设置
-    columns?: Array<FormColumn>;
-    /** 栅格布列之前的间隔 */
+    columns: Array<FormColumn>;
+    // 表单数据对象
+    model: any;
+    // 栅格布列之前的间隔
     gutter?: number;
-    /** Form Attributes 具体参考element-plus官方文档*/
+    // Form Attributes 具体参考element-plus官方文档
     [key: string]: any;
 }
 /**组件属性 */
 const props = withDefaults(defineProps<Form>(), {
-    'label-position': 'left',
-    'scroll-to-error': true,
+    model: {},
     columns: () => [],
     gutter: () => 10
 });
 
 const ruleForm = ref<FormInstance | null>(null);
-/**表单数据对象 */
-const model = reactive<{
-    [key: string]: any;
-}>({});
 watchEffect(() => {
     for (const item of props.columns) {
-        if (typeof item.defaultValue !== 'undefined') model[item.formItemAttrs?.prop] = item.defaultValue;
+        if (typeof item.defaultValue !== 'undefined') {
+            props.model![item.prop] = item.defaultValue;
+        }
     }
 });
 
 /**获取元素需要绑定的属性对象 */
+const formAttrs = [
+    'model',
+    'rules',
+    'inline',
+    'labelPosition',
+    'labelWidths',
+    'labelSuffix',
+    'hideRequiredAsterisk',
+    'requireAsteriskPosition',
+    'showMessage',
+    'inlineMessage',
+    'statusIcon',
+    'validateOnRuleChange',
+    'size',
+    'disabled',
+    'scrollToError',
+    'scrollIntoViewOptions'
+];
+const formItemAttrs = ['prop', 'label', 'labelWidth', 'required', 'rules', 'error', 'showMessage', 'inlineMessage', 'size', 'validate-status'];
+const customerAttrs = ['el', 'span', 'defaultValue', 'slot', 'render', 'methods'];
 const getBindAttrs = computed(() => {
     return (column?: any, type?: string) => {
+        const attrs: { [key: string]: any } = {};
         if (!column && !type) {
-            const { columns, gutter, ...formAttrs } = props;
-            return formAttrs;
+            for (const [key, val] of Object.entries(props)) {
+                if (formAttrs.includes(key)) {
+                    attrs[key] = val;
+                }
+            }
         }
         if (type === 'item') {
-            const {
-                prop,
-                label,
-                'label-width': labelWidth,
-                required,
-                rules,
-                error,
-                'show-message': showMessage,
-                'inline-message': inlineMessage,
-                size,
-                'validate-status': validateStatus
-            } = column;
-            const formItemAttrs = { prop, label, labelWidth, required, rules, error, showMessage, inlineMessage, size, validateStatus };
-            return formItemAttrs;
-        } else if (type === 'checkboxGroup' || type === 'radioGroup') {
-            const {
-                el,
-                span,
-                defaultValue,
-                slot,
-                render,
-                methods,
-                prop,
-                label,
-                labelWidth,
-                required,
-                rules,
-                error,
-                showMessage,
-                inlineMessage,
-                size,
-                validateStatus,
-                options,
-                ...elAttrs
-            } = column;
-            return elAttrs;
+            for (const [key, val] of Object.entries(column)) {
+                if (formItemAttrs.includes(key)) {
+                    attrs[key] = val;
+                }
+            }
         } else {
-            const { el, span, defaultValue, slot, render, methods, prop, label, labelWidth, required, rules, error, showMessage, inlineMessage, size, validateStatus, ...elAttrs } =
-                column;
-            return elAttrs;
+            for (const [key, val] of Object.entries(column)) {
+                if (!formItemAttrs.includes(key) && !customerAttrs.includes(key)) {
+                    attrs[key] = val;
+                }
+            }
         }
+        return attrs;
     };
 });
-/**去除输入框值的前后空格 */
-const trimVal = (event: FocusEvent, column: FormColumn): void => {
-    const el = event.target as HTMLInputElement;
-    model[column.formItemAttrs?.prop] = el.value.trim();
-    return column.methods?.onBlur && column.methods.onBlur(event);
-};
 const emits = defineEmits<{
     (e: 'update:model', payload: any): void;
 }>();
+watchEffect(() => {
+    if (props.model) {
+        emits('update:model', props.model);
+    }
+});
 /**导出组件内数据,用于在组件外部调用 */
 defineExpose({});
 </script>
@@ -130,8 +123,8 @@ defineExpose({});
                             <el-input
                                 placeholder="请输入"
                                 v-bind="getBindAttrs(column)"
-                                v-model="model[column?.prop]"
-                                @blur="(event: FocusEvent) => trimVal(event, column)"
+                                v-model="model![column?.prop]"
+                                @blur="column.methods?.onBlur"
                                 @focus="column.methods?.onFocus"
                                 @change="column.methods?.onChange"
                                 @input="column.methods?.onInput"
@@ -147,7 +140,7 @@ defineExpose({});
                                 :clearable="true"
                                 :filterable="true"
                                 v-bind="getBindAttrs(column)"
-                                v-model="model[column?.prop]"
+                                v-model="model![column?.prop]"
                                 @change="column.methods?.onChange"
                                 @visible-change="column.methods?.visibleChange"
                                 @remove-tag="column.methods?.removeTag"
@@ -164,7 +157,7 @@ defineExpose({});
                                 :collapse-tags-tooltip="true"
                                 :filterable="true"
                                 v-bind="getBindAttrs(column)"
-                                v-model="model[column?.prop]"
+                                v-model="props.model![column?.prop]"
                                 @change="column.methods?.onChange"
                                 @visible-change="column.methods?.visibleChange"
                                 @remove-tag="column.methods?.removeTag"
@@ -177,7 +170,7 @@ defineExpose({});
                         <template v-if="column.el === 'checkbox'">
                             <el-checkbox
                                 v-bind="getBindAttrs(column)"
-                                v-model="model[column?.prop]"
+                                v-model="model![column?.prop]"
                                 @change="column.methods?.onChange"
                             />
                         </template>
@@ -185,7 +178,7 @@ defineExpose({});
                         <template v-if="column.el === 'checkboxGroup'">
                             <el-checkbox-group
                                 v-bind="getBindAttrs(column, 'checkboxGroup')"
-                                v-model="model[column?.prop]"
+                                v-model="model![column?.prop]"
                                 @change="column.methods?.onChange"
                             >
                                 <el-checkbox
@@ -200,7 +193,7 @@ defineExpose({});
                         <template v-if="column.el === 'radioGroup'">
                             <el-radio-group
                                 v-bind="getBindAttrs(column, 'radioGroup')"
-                                v-model="model[column?.prop]"
+                                v-model="model![column?.prop]"
                                 @change="column.methods?.onChange"
                             >
                                 <el-radio
@@ -217,7 +210,7 @@ defineExpose({});
                             <el-date-picker
                                 placeholder="请选择"
                                 v-bind="getBindAttrs(column)"
-                                v-model="model[column?.prop]"
+                                v-model="model![column?.prop]"
                                 @change="column.methods?.onChange"
                                 @blur="column.methods?.onBlur"
                                 @focus="column.methods?.onFocus"
@@ -229,7 +222,7 @@ defineExpose({});
                         <template v-if="column.el === 'switch'">
                             <el-switch
                                 v-bind="getBindAttrs(column)"
-                                v-model="model[column?.prop]"
+                                v-model="model![column?.prop]"
                                 @change="column.methods?.onChange"
                             />
                         </template>

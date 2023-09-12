@@ -21,9 +21,11 @@ declare global {
     }
     interface Form {
         // 单元设置
-        columns?: Array<FormColumn>;
+        columns: Array<FormColumn>;
         // 栅格布列之前的间隔
         gutter?: number;
+        // 表单数据对象
+        model: any;
         // Form Attributes 具体参考element-plus官方文档
         [key: string]: any;
     }

@@ -33,7 +33,7 @@ const columns = reactive<FormColumn[]>([
         el: 'checkbox',
         'true-label': 1,
         'false-label': 0,
-        defaultValue: 0
+        defaultValue: 1
     },
     {
         prop: 'city',
