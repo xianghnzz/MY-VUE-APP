@@ -7,7 +7,7 @@ const columns = reactive<FormColumn[]>([
         prop: 'username',
         label: '用户名',
         el: 'input',
-        placeholder: '请输入',
+        labelWidth: '100px',
         methods: {
             onChange: (val: string | number) => {
                 console.log(val, '=====');
@@ -99,7 +99,7 @@ const columns = reactive<FormColumn[]>([
 ]);
 
 const getFormData = () => {
-    console.log(ruleFormRef.value?.model, '====');
+    console.log(model, '====');
 };
 </script>
 <template>
