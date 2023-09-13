@@ -37,16 +37,7 @@ const props = withDefaults(defineProps<Form>(), {
     columns: () => [],
     gutter: () => 10
 });
-
 const ruleForm = ref<FormInstance | null>(null);
-watchEffect(() => {
-    for (const item of props.columns) {
-        if (typeof item.defaultValue !== 'undefined') {
-            props.model![item.prop] = item.defaultValue;
-        }
-    }
-});
-
 /**获取元素需要绑定的属性对象 */
 const formAttrs = [
     'model',
@@ -84,7 +75,8 @@ const getBindAttrs = computed(() => {
                     attrs[key] = val;
                 }
             }
-        } else {
+        }
+        if (type === 'el') {
             for (const [key, val] of Object.entries(column)) {
                 if (!formItemAttrs.includes(key) && !customerAttrs.includes(key)) {
                     attrs[key] = val;
@@ -98,17 +90,28 @@ const emits = defineEmits<{
     (e: 'update:model', payload: any): void;
 }>();
 watchEffect(() => {
-    if (props.model) {
-        emits('update:model', props.model);
+    for (const item of props.columns) {
+        if (typeof item.defaultValue !== 'undefined') {
+            props.model![item.prop] = item.defaultValue;
+        }
     }
 });
+watchEffect(() => {
+    if (props.model) emits('update:model', props.model);
+});
+/**组件外部方法 */
+const validate = () => {
+    return true;
+};
 /**导出组件内数据,用于在组件外部调用 */
-defineExpose({});
+defineExpose({
+    validate
+});
 </script>
 <template>
     <div class="c-form">
         <el-form
-            v-bind="getBindAttrs"
+            v-bind="getBindAttrs()"
             ref="ruleForm"
         >
             <el-row :gutter="props.gutter">
@@ -122,7 +125,7 @@ defineExpose({});
                         <template v-if="column.el === 'input'">
                             <el-input
                                 placeholder="请输入"
-                                v-bind="getBindAttrs(column)"
+                                v-bind="getBindAttrs(column, 'el')"
                                 v-model="model![column?.prop]"
                                 @blur="column.methods?.onBlur"
                                 @focus="column.methods?.onFocus"
@@ -139,7 +142,7 @@ defineExpose({});
                                 placeholder="请选择"
                                 :clearable="true"
                                 :filterable="true"
-                                v-bind="getBindAttrs(column)"
+                                v-bind="getBindAttrs(column, 'el')"
                                 v-model="model![column?.prop]"
                                 @change="column.methods?.onChange"
                                 @visible-change="column.methods?.visibleChange"
@@ -156,7 +159,7 @@ defineExpose({});
                                 :collapse-tags="true"
                                 :collapse-tags-tooltip="true"
                                 :filterable="true"
-                                v-bind="getBindAttrs(column)"
+                                v-bind="getBindAttrs(column, 'el')"
                                 v-model="props.model![column?.prop]"
                                 @change="column.methods?.onChange"
                                 @visible-change="column.methods?.visibleChange"
@@ -169,7 +172,7 @@ defineExpose({});
                         <!-- 单个复选框 -->
                         <template v-if="column.el === 'checkbox'">
                             <el-checkbox
-                                v-bind="getBindAttrs(column)"
+                                v-bind="getBindAttrs(column, 'el')"
                                 v-model="model![column?.prop]"
                                 @change="column.methods?.onChange"
                             />
@@ -177,7 +180,7 @@ defineExpose({});
                         <!-- 复选框group -->
                         <template v-if="column.el === 'checkboxGroup'">
                             <el-checkbox-group
-                                v-bind="getBindAttrs(column, 'checkboxGroup')"
+                                v-bind="getBindAttrs(column, 'el')"
                                 v-model="model![column?.prop]"
                                 @change="column.methods?.onChange"
                             >
@@ -192,7 +195,7 @@ defineExpose({});
                         <!-- 单选框组 -->
                         <template v-if="column.el === 'radioGroup'">
                             <el-radio-group
-                                v-bind="getBindAttrs(column, 'radioGroup')"
+                                v-bind="getBindAttrs(column, 'el')"
                                 v-model="model![column?.prop]"
                                 @change="column.methods?.onChange"
                             >
@@ -209,7 +212,7 @@ defineExpose({});
                         <template v-if="column.el === 'date'">
                             <el-date-picker
                                 placeholder="请选择"
-                                v-bind="getBindAttrs(column)"
+                                v-bind="getBindAttrs(column, 'el')"
                                 v-model="model![column?.prop]"
                                 @change="column.methods?.onChange"
                                 @blur="column.methods?.onBlur"
@@ -221,7 +224,7 @@ defineExpose({});
                         <!-- switch -->
                         <template v-if="column.el === 'switch'">
                             <el-switch
-                                v-bind="getBindAttrs(column)"
+                                v-bind="getBindAttrs(column, 'el')"
                                 v-model="model![column?.prop]"
                                 @change="column.methods?.onChange"
                             />

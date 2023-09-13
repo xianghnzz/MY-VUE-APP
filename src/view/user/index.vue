@@ -1,7 +1,7 @@
 <script setup lang="tsx">
 import PlmForm from '@/components/plmForm.vue';
 const ruleFormRef = ref<InstanceType<typeof PlmForm> | null>(null);
-const model = reactive({});
+const model = reactive<any>({});
 const columns = reactive<FormColumn[]>([
     {
         prop: 'username',
@@ -12,7 +12,8 @@ const columns = reactive<FormColumn[]>([
             onChange: (val: string | number) => {
                 console.log(val, '=====');
             }
-        }
+        },
+        rules: { required: true, message: '请输入用户名', trigger: 'change' }
     },
     {
         prop: 'pwd',
@@ -93,7 +94,12 @@ const columns = reactive<FormColumn[]>([
         prop: 'renderProp',
         label: 'render',
         render: () => {
-            return <div>123</div>;
+            return (
+                <el-input
+                    placeholder="请输入"
+                    v-model={model.renderProp}
+                />
+            );
         }
     }
 ]);
