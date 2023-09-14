@@ -26,7 +26,8 @@ const columns = reactive<FormColumn[]>([
                 label: 'lixiang',
                 value: '1'
             }
-        ]
+        ],
+        rules: { required: true, message: '请选择', trigger: 'change' }
     },
     {
         prop: 'isEnable',
@@ -105,7 +106,8 @@ const columns = reactive<FormColumn[]>([
 ]);
 
 const getFormData = () => {
-    console.log(model, '====');
+    // ruleFormRef.value?.validate();
+    ruleFormRef.value?.clearValidate();
 };
 </script>
 <template>
@@ -113,7 +115,7 @@ const getFormData = () => {
         <el-button
             type="primary"
             @click="getFormData"
-            >用户</el-button
+            >按钮</el-button
         >
         <PlmForm
             v-model:model="model"

@@ -99,13 +99,45 @@ watchEffect(() => {
 watchEffect(() => {
     if (props.model) emits('update:model', props.model);
 });
-/**组件外部方法 */
-const validate = () => {
-    return true;
+/**校验整个表单 */
+const validate = async () => {
+    if (!ruleForm.value) return;
+    const valid = await ruleForm.value.validate(valid => valid);
+    return valid;
+};
+/**校验表单中的某个字段 */
+const validateField = async (prop: string) => {
+    if (!ruleForm.value) return;
+    const valid = await ruleForm.value.validateField(prop, valid => valid);
+    return valid;
+};
+/**重置该表单项，传入属性，重置某一项，不传默认重置整个表单*/
+const resetFields = async (prop?: string) => {
+    if (prop) {
+        ruleForm.value?.resetFields(prop);
+        return;
+    }
+    ruleForm.value?.resetFields();
+};
+/**清空某个字段的校验信息，不传参数默认清空整个表单的校验信息 */
+const clearValidate = (prop?: string) => {
+    if (prop) {
+        ruleForm.value?.clearValidate(prop);
+        return;
+    }
+    ruleForm.value?.clearValidate();
+};
+/**滚动到指定的字段 */
+const scrollToField = (prop: string) => {
+    ruleForm.value?.scrollToField(prop);
 };
 /**导出组件内数据,用于在组件外部调用 */
 defineExpose({
-    validate
+    validate,
+    validateField,
+    resetFields,
+    scrollToField,
+    clearValidate
 });
 </script>
 <template>
