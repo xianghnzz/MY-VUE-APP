@@ -1,6 +1,6 @@
 /**core */
-import { createApp } from 'vue';
 import App from '@/App.vue';
+import '@/router/permission';
 import { i18n } from '@/i18n';
 import router from './router';
 import { loadSvg } from '@/icons';
