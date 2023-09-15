@@ -327,6 +327,7 @@ defineExpose({
         display: flex;
         align-items: center;
         &__content {
+            max-width: 200px;
         }
     }
 }
