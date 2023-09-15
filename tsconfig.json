@@ -24,6 +24,6 @@
             "@/*": ["./src/*"] // 这里需要配置
         }
     },
-    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "auto-imports.d.ts", "src/**/*.jsx"],
+    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "auto-imports.d.ts", "src/**/*.jsx", "src/**/*.js"],
     "references": [{ "path": "./tsconfig.node.json" }]
 }

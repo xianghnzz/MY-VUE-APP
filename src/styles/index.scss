@@ -7,6 +7,10 @@
 // reset css
 @use './reset.scss' as *;
 
+html {
+    font-size: 192px;
+}
+
 #app {
     width: 100%;
     height: 100%;
