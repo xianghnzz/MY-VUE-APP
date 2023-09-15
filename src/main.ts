@@ -5,6 +5,7 @@ import { i18n } from '@/i18n';
 import router from './router';
 import { loadSvg } from '@/icons';
 import 'default-passive-events';
+import 'lib-flexible';
 /**css */
 import './styles/index.scss';
 

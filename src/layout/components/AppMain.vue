@@ -12,10 +12,12 @@ const key = computed(() => {
                 name="fade-transform"
                 mode="out-in"
             >
-                <component
-                    :is="Component"
-                    :key="key"
-                />
+                <keep-alive>
+                    <component
+                        :is="Component"
+                        :key="key"
+                    />
+                </keep-alive>
             </transition>
         </router-view>
     </section>
