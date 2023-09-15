@@ -269,21 +269,65 @@ defineExpose({
                         <template v-if="!column.slot && column.render">
                             <Component :is="column?.render" />
                         </template>
+                        <!-- 表单验证错误信息插槽 -->
+                        <template #error="{ error }">
+                            <div class="c-form__error">
+                                <el-tooltip
+                                    effect="dark"
+                                    placement="top"
+                                >
+                                    <div style="height: 100%; display: flex; align-items: center">
+                                        <el-icon
+                                            :size="16"
+                                            v-if="error"
+                                            color="#f74439"
+                                        >
+                                            <i-ep-WarningFilled />
+                                        </el-icon>
+                                    </div>
+
+                                    <template #content>
+                                        <div class="c-form__error__content">
+                                            {{ error }}
+                                        </div>
+                                    </template>
+                                </el-tooltip>
+                            </div>
+                        </template>
                     </el-form-item>
                 </el-col>
             </el-row>
-            <el-form-item></el-form-item>
         </el-form>
     </div>
 </template>
 <style lang="scss" scoped>
 @use '@/styles/variables.scss' as *;
 .c-form {
+    :deep(.el-form-item.is-error .el-input__wrapper) {
+        padding-right: 27px;
+    }
+    :deep(.el-form-item.is-error .el-select-v2__suffix) {
+        position: absolute;
+        right: 25px;
+    }
     :deep(.el-input) {
         width: 100%;
     }
     :deep(.el-select-v2) {
         width: 100%;
+    }
+
+    &__error {
+        transition: 0s;
+        position: absolute;
+        height: 100%;
+        right: 6px;
+        top: 0;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        &__content {
+        }
     }
 }
 </style>

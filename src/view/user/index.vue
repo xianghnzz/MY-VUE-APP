@@ -7,7 +7,7 @@ const columns = reactive<FormColumn[]>([
         prop: 'username',
         label: '用户名',
         el: 'input',
-        labelWidth: '100px',
+        labelWidth: '0.5rem',
         methods: {
             onChange: (val: string | number) => {
                 console.log(val, '=====');
@@ -21,6 +21,7 @@ const columns = reactive<FormColumn[]>([
         el: 'select',
         placeholder: '请选择',
         multiple: true,
+        labelWidth: '0.6rem',
         options: [
             {
                 label: 'lixiang',
@@ -35,12 +36,14 @@ const columns = reactive<FormColumn[]>([
         el: 'checkbox',
         'true-label': 1,
         'false-label': 0,
-        defaultValue: 1
+        defaultValue: 1,
+        labelWidth: '0.7rem'
     },
     {
         prop: 'city',
         label: '城市',
         el: 'checkboxGroup',
+        labelWidth: '0.4rem',
         options: [
             {
                 label: '郑州',
@@ -60,12 +63,14 @@ const columns = reactive<FormColumn[]>([
         prop: 'date',
         label: '日期',
         el: 'date',
-        type: 'datetime'
+        type: 'datetime',
+        labelWidth: '0.5rem'
     },
     {
         prop: 'radio',
         label: '单选',
         el: 'radioGroup',
+        labelWidth: '0.6rem',
         options: [
             {
                 label: '郑州',
@@ -84,16 +89,19 @@ const columns = reactive<FormColumn[]>([
     {
         prop: 'swicth',
         label: '开关',
-        el: 'switch'
+        el: 'switch',
+        labelWidth: '0.7rem'
     },
     {
         prop: 'slotprop',
         label: '插槽',
-        slot: true
+        slot: true,
+        labelWidth: '0.4rem'
     },
     {
         prop: 'renderProp',
         label: 'render',
+        labelWidth: '0.5rem',
         render: () => {
             return (
                 <el-input
@@ -105,18 +113,15 @@ const columns = reactive<FormColumn[]>([
     }
 ]);
 
-const getFormData = () => {
-    // ruleFormRef.value?.validate();
-    ruleFormRef.value?.clearValidate();
+const handleSubmit = () => {
+    ruleFormRef.value?.validate();
+};
+const handleReset = () => {
+    ruleFormRef.value?.resetFields();
 };
 </script>
 <template>
     <div>
-        <el-button
-            type="primary"
-            @click="getFormData"
-            >按钮</el-button
-        >
         <PlmForm
             v-model:model="model"
             :columns="columns"
@@ -126,6 +131,16 @@ const getFormData = () => {
                 <div>插槽</div>
             </template>
         </PlmForm>
+        <el-button
+            type="primary"
+            @click="handleSubmit"
+            >按钮
+        </el-button>
+        <el-button
+            type="primary"
+            @click="handleReset"
+            >重置
+        </el-button>
     </div>
 </template>
 <style lang="scss" scoped>
