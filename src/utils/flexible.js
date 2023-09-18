@@ -71,6 +71,9 @@
         if (width / dpr > 540) {
             width = width * dpr; //重点
         }
+        if (width / dpr < 1000) {
+            width = 1280 * dpr; //获取屏幕宽度，如果宽度小于1280 则固定写死1280
+        }
         var rem = width / 10;
         docEl.style.fontSize = rem + 'px';
         flexible.rem = win.rem = rem;
