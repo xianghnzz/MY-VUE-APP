@@ -68,6 +68,7 @@ const getBindAttrs = computed(() => {
                     attrs[key] = val;
                 }
             }
+            console.log(attrs, '====');
         }
         if (type === 'item') {
             for (const [key, val] of Object.entries(column)) {
@@ -270,7 +271,7 @@ defineExpose({
                             <Component :is="column?.render" />
                         </template>
                         <!-- 表单验证错误信息插槽 -->
-                        <template #error="{ error }">
+                        <!-- <template #error="{ error }">
                             <div class="c-form__error">
                                 <el-tooltip
                                     effect="dark"
@@ -293,7 +294,7 @@ defineExpose({
                                     </template>
                                 </el-tooltip>
                             </div>
-                        </template>
+                        </template> -->
                     </el-form-item>
                 </el-col>
             </el-row>
