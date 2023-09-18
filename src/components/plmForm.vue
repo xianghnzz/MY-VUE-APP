@@ -37,7 +37,7 @@ const props = withDefaults(defineProps<Form>(), {
     columns: () => [],
     gutter: () => 10
 });
-console.log(props, '====');
+const { proxy } = getCurrentInstance() as any;
 const ruleForm = ref<FormInstance | null>(null);
 /**获取元素需要绑定的属性对象 */
 const formAttrs = [
@@ -64,11 +64,12 @@ const getBindAttrs = computed(() => {
     return (column?: any, type?: string) => {
         const attrs: { [key: string]: any } = {};
         if (!column && !type) {
-            for (const [key, val] of Object.entries(props)) {
+            for (const [key, val] of Object.entries(proxy.$attrs)) {
                 if (formAttrs.includes(key)) {
                     attrs[key] = val;
                 }
             }
+            console.log(attrs, '====');
         }
         if (type === 'item') {
             for (const [key, val] of Object.entries(column)) {
@@ -144,6 +145,7 @@ defineExpose({
 <template>
     <div class="c-form">
         <el-form
+            :model="model"
             v-bind="getBindAttrs()"
             ref="ruleForm"
         >
