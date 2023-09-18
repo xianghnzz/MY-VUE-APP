@@ -125,7 +125,7 @@ const handleReset = () => {
         <PlmForm
             v-model:model="model"
             :columns="columns"
-            :inline-message="true"
+            size="small"
             ref="ruleFormRef"
         >
             <template #slotprop>

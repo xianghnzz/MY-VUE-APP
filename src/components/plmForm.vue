@@ -37,6 +37,7 @@ const props = withDefaults(defineProps<Form>(), {
     columns: () => [],
     gutter: () => 10
 });
+console.log(props, '====');
 const ruleForm = ref<FormInstance | null>(null);
 /**获取元素需要绑定的属性对象 */
 const formAttrs = [
@@ -68,7 +69,6 @@ const getBindAttrs = computed(() => {
                     attrs[key] = val;
                 }
             }
-            console.log(attrs, '====');
         }
         if (type === 'item') {
             for (const [key, val] of Object.entries(column)) {
@@ -271,7 +271,7 @@ defineExpose({
                             <Component :is="column?.render" />
                         </template>
                         <!-- 表单验证错误信息插槽 -->
-                        <!-- <template #error="{ error }">
+                        <template #error="{ error }">
                             <div class="c-form__error">
                                 <el-tooltip
                                     effect="dark"
@@ -294,7 +294,7 @@ defineExpose({
                                     </template>
                                 </el-tooltip>
                             </div>
-                        </template> -->
+                        </template>
                     </el-form-item>
                 </el-col>
             </el-row>
