@@ -28,14 +28,16 @@ interface Form {
     model: any;
     // 栅格布列之前的间隔
     gutter?: number;
+    // 组件是否使用搜索栏样式和布局
+    searchForm?: boolean;
     // Form Attributes 具体参考element-plus官方文档
     [key: string]: any;
 }
 /**组件属性 */
 const props = withDefaults(defineProps<Form>(), {
-    model: {},
     columns: () => [],
-    gutter: () => 10
+    model: {},
+    gutter: () => 0
 });
 const { proxy } = getCurrentInstance() as any;
 const ruleForm = ref<FormInstance | null>(null);
@@ -69,7 +71,6 @@ const getBindAttrs = computed(() => {
                     attrs[key] = val;
                 }
             }
-            console.log(attrs, '====');
         }
         if (type === 'item') {
             for (const [key, val] of Object.entries(column)) {
@@ -143,15 +144,15 @@ defineExpose({
 });
 </script>
 <template>
-    <div class="c-form">
+    <div :class="{ 'c-form': true, searchForm: searchForm }">
         <el-form
             :model="model"
             v-bind="getBindAttrs()"
             ref="ruleForm"
         >
-            <el-row :gutter="props.gutter">
+            <el-row :gutter="gutter">
                 <el-col
-                    v-for="(column, index) in props.columns"
+                    v-for="(column, index) in columns"
                     :key="index"
                     :span="column.span || 6"
                 >
@@ -195,7 +196,7 @@ defineExpose({
                                 :collapse-tags-tooltip="true"
                                 :filterable="true"
                                 v-bind="getBindAttrs(column, 'el')"
-                                v-model="props.model![column?.prop]"
+                                v-model="model![column?.prop]"
                                 @change="column.methods?.onChange"
                                 @visible-change="column.methods?.visibleChange"
                                 @remove-tag="column.methods?.removeTag"
@@ -301,11 +302,16 @@ defineExpose({
                 </el-col>
             </el-row>
         </el-form>
+        <div class="c-form__handle">
+            <slot name="handle" />
+        </div>
     </div>
 </template>
 <style lang="scss" scoped>
 @use '@/styles/variables.scss' as *;
 .c-form {
+    $c: &;
+
     :deep(.el-form-item.is-error .el-input__wrapper) {
         padding-right: 27px;
     }
@@ -318,6 +324,14 @@ defineExpose({
     }
     :deep(.el-select-v2) {
         width: 100%;
+    }
+
+    &.searchForm {
+        display: flex;
+        #{$c}__handle {
+            white-space: nowrap;
+            margin-left: 20px;
+        }
     }
 
     &__error {
