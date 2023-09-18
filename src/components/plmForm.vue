@@ -330,7 +330,7 @@ defineExpose({
         display: flex;
         #{$c}__handle {
             white-space: nowrap;
-            margin-left: 20px;
+            margin-left: $space-x-big;
         }
     }
 

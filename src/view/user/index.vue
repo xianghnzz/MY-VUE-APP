@@ -121,29 +121,31 @@ const handleReset = () => {
 };
 </script>
 <template>
-    <div>
-        <PlmForm
-            v-model:model="model"
-            :columns="columns"
-            searchForm
-            ref="ruleFormRef"
-        >
-            <template #slotprop>
-                <div>插槽</div>
-            </template>
-            <template #handle>
-                <el-button
-                    type="primary"
-                    @click="handleSubmit"
-                    >按钮
-                </el-button>
-                <el-button
-                    type="primary"
-                    @click="handleReset"
-                    >重置
-                </el-button>
-            </template>
-        </PlmForm>
+    <div class="page-list">
+        <div class="page-list__header">
+            <PlmForm
+                v-model:model="model"
+                :columns="columns"
+                searchForm
+                ref="ruleFormRef"
+            >
+                <template #slotprop>
+                    <div>插槽</div>
+                </template>
+                <template #handle>
+                    <el-button
+                        type="primary"
+                        @click="handleSubmit"
+                        >按钮
+                    </el-button>
+                    <el-button
+                        type="primary"
+                        @click="handleReset"
+                        >重置
+                    </el-button>
+                </template>
+            </PlmForm>
+        </div>
     </div>
 </template>
 <style lang="scss" scoped>

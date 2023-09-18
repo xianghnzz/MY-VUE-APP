@@ -71,6 +71,7 @@ const activeMenu = computed(() => {
     bottom: var(--plm-footer-height);
     display: flex;
     flex-direction: column;
+    z-index: 10;
 
     &__hamburger {
         position: absolute;
