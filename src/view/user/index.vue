@@ -1,7 +1,9 @@
 <script setup lang="tsx">
 import AppForm from '@/components/AppForm.vue';
 const ruleFormRef = ref<InstanceType<typeof AppForm> | null>(null);
-const model = reactive<any>({});
+const model = reactive<any>({
+    isEnable: 1
+});
 const columns = reactive<FormColumn[]>([
     {
         prop: 'username',
@@ -39,7 +41,6 @@ const columns = reactive<FormColumn[]>([
         el: 'checkbox',
         'true-label': 1,
         'false-label': 0,
-        defaultValue: 1,
         labelWidth: '0.7rem'
     },
     {
@@ -118,6 +119,7 @@ const columns = reactive<FormColumn[]>([
 
 const handleSubmit = () => {
     ruleFormRef.value?.validate();
+    console.log(model, '=====');
 };
 const handleReset = () => {
     ruleFormRef.value?.resetFields();
@@ -139,7 +141,7 @@ const handleReset = () => {
                     <el-button
                         type="primary"
                         @click="handleSubmit"
-                        >按钮
+                        >提交
                     </el-button>
                     <el-button
                         type="primary"

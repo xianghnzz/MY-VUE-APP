@@ -4,7 +4,6 @@ import { FormInstance } from 'element-plus';
 interface FormColumn {
     span?: number; // 栅格布局,表单元素占几行
     el?: 'input' | 'number' | 'select' | 'checkbox' | 'checkboxGroup' | 'radioGroup' | 'switch' | 'date' | 'text'; // 自定义的组件属性，用来渲染对应的表单元素
-    defaultValue?: any; // 默认值
     slot?: boolean; // 使用插槽
     render?: () => any; // render函数
     customerClass?: string; // 自定义类名
@@ -38,7 +37,7 @@ interface Form {
 /**组件属性 */
 const props = withDefaults(defineProps<Form>(), {
     columns: () => [],
-    model: {},
+    model: () => ({}),
     gutter: () => 0
 });
 const { proxy } = getCurrentInstance() as any;
@@ -63,7 +62,7 @@ const formAttrs = [
     'scrollIntoViewOptions'
 ];
 const formItemAttrs = ['prop', 'label', 'labelWidth', 'required', 'rules', 'error', 'showMessage', 'inlineMessage', 'size', 'validate-status'];
-const customerAttrs = ['el', 'span', 'defaultValue', 'slot', 'render', 'methods', 'customerClass', 'suffix'];
+const customerAttrs = ['el', 'span', 'slot', 'render', 'methods', 'customerClass', 'suffix'];
 const getBindAttrs = computed(() => {
     return (column?: any, type?: string) => {
         const attrs: { [key: string]: any } = {};
@@ -94,13 +93,6 @@ const getBindAttrs = computed(() => {
 const emits = defineEmits<{
     (e: 'update:model', payload: any): void;
 }>();
-watchEffect(() => {
-    for (const item of props.columns) {
-        if (typeof item.defaultValue !== 'undefined') {
-            props.model![item.prop] = item.defaultValue;
-        }
-    }
-});
 watchEffect(() => {
     if (props.model) emits('update:model', props.model);
 });
