@@ -8,6 +8,9 @@ const columns = reactive<FormColumn[]>([
         label: '用户名',
         el: 'input',
         labelWidth: '0.5rem',
+        customerClass: 'renderEl',
+        clearable: true,
+        suffix: 'RMB',
         methods: {
             onChange: (val: string | number) => {
                 console.log(val, '=====');
@@ -150,4 +153,7 @@ const handleReset = () => {
 </template>
 <style lang="scss" scoped>
 @use '@/styles/variables.scss' as *;
+:deep(.renderEl) {
+    width: 80%;
+}
 </style>

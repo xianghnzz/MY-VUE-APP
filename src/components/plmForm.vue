@@ -6,7 +6,9 @@ interface FormColumn {
     el?: 'input' | 'number' | 'select' | 'checkbox' | 'checkboxGroup' | 'radioGroup' | 'switch' | 'date' | 'text'; // 自定义的组件属性，用来渲染对应的表单元素
     defaultValue?: any; // 默认值
     slot?: boolean; // 使用插槽
-    render?: () => any;
+    render?: () => any; // render函数
+    customerClass?: string; // 自定义类名
+    suffix?: string; // 后缀
     methods?: {
         onBlur?: (event: FocusEvent) => void;
         onFocus?: (event: FocusEvent) => void;
@@ -61,7 +63,7 @@ const formAttrs = [
     'scrollIntoViewOptions'
 ];
 const formItemAttrs = ['prop', 'label', 'labelWidth', 'required', 'rules', 'error', 'showMessage', 'inlineMessage', 'size', 'validate-status'];
-const customerAttrs = ['el', 'span', 'defaultValue', 'slot', 'render', 'methods'];
+const customerAttrs = ['el', 'span', 'defaultValue', 'slot', 'render', 'methods', 'customerClass', 'suffix'];
 const getBindAttrs = computed(() => {
     return (column?: any, type?: string) => {
         const attrs: { [key: string]: any } = {};
@@ -156,7 +158,10 @@ defineExpose({
                     :key="index"
                     :span="column.span || 6"
                 >
-                    <el-form-item v-bind="getBindAttrs(column, 'item')">
+                    <el-form-item
+                        v-bind="getBindAttrs(column, 'item')"
+                        :class="{ [column.customerClass]: !!column.customerClass }"
+                    >
                         <!-- input -->
                         <template v-if="column.el === 'input'">
                             <el-input
@@ -299,6 +304,11 @@ defineExpose({
                             </div>
                         </template>
                     </el-form-item>
+                    <span
+                        v-if="!!column.suffix"
+                        class="c-form__suffix"
+                        >{{ column.suffix }}</span
+                    >
                 </el-col>
             </el-row>
         </el-form>
@@ -345,6 +355,22 @@ defineExpose({
         align-items: center;
         &__content {
             max-width: 200px;
+        }
+    }
+
+    &__suffix {
+        color: $black;
+        font-size: $mini;
+        margin-left: $space-small;
+    }
+    .el-col {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: $x-big;
+        .el-form-item {
+            flex: 1;
+            margin: 0;
         }
     }
 }
