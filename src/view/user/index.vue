@@ -1,6 +1,6 @@
 <script setup lang="tsx">
-import PlmForm from '@/components/plmForm.vue';
-const ruleFormRef = ref<InstanceType<typeof PlmForm> | null>(null);
+import AppForm from '@/components/AppForm.vue';
+const ruleFormRef = ref<InstanceType<typeof AppForm> | null>(null);
 const model = reactive<any>({});
 const columns = reactive<FormColumn[]>([
     {
@@ -126,7 +126,7 @@ const handleReset = () => {
 <template>
     <div class="page-list">
         <div class="page-list__header">
-            <PlmForm
+            <AppForm
                 v-model:model="model"
                 :columns="columns"
                 searchForm
@@ -147,7 +147,7 @@ const handleReset = () => {
                         >重置
                     </el-button>
                 </template>
-            </PlmForm>
+            </AppForm>
         </div>
     </div>
 </template>
