@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import AppForm from '@/components/AppForm.vue';
+import AppForm from '@/components/appForm.vue';
 const ruleFormRef = ref<InstanceType<typeof AppForm> | null>(null);
 const model = reactive<any>({
     isEnable: 1

@@ -8,6 +8,7 @@ interface FormColumn {
     render?: () => any; // render函数
     customerClass?: string; // 自定义类名
     suffix?: string; // 后缀
+    hidden?: boolean; // 是否隐藏该表单项
     methods?: {
         onBlur?: (event: FocusEvent) => void;
         onFocus?: (event: FocusEvent) => void;
