@@ -151,6 +151,14 @@ const handleReset = () => {
                 </template>
             </AppForm>
         </div>
+        <div class="page-list__body">
+            <AppTable
+                :width="600"
+                :height="600"
+                :data="[]"
+                :columns="[]"
+            ></AppTable>
+        </div>
     </div>
 </template>
 <style lang="scss" scoped>
