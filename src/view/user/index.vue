@@ -1,7 +1,8 @@
 <script setup lang="tsx">
 import AppForm from '@/components/appForm.vue';
 const ruleFormRef = ref<InstanceType<typeof AppForm> | null>(null);
-const model = reactive<any>({
+const model = ref<any>({
+    // 注意这里不能是 reactive对象
     isEnable: 1
 });
 const columns = reactive<FormColumn[]>([
@@ -14,9 +15,9 @@ const columns = reactive<FormColumn[]>([
         clearable: true,
         suffix: 'RMB',
         methods: {
-            onChange: (val: string | number) => {
-                console.log(val, '=====');
-            }
+            // onChange: (val: string | number) => {
+            //     console.log(val, '=====');
+            // }
         },
         rules: { required: true, message: '请输入用户名', trigger: 'change' }
     },
@@ -119,7 +120,7 @@ const columns = reactive<FormColumn[]>([
 
 const handleSubmit = () => {
     ruleFormRef.value?.validate();
-    console.log(model, '=====');
+    console.log(model.value, '=====');
 };
 const handleReset = () => {
     ruleFormRef.value?.resetFields();

@@ -94,9 +94,20 @@ const getBindAttrs = computed(() => {
 const emits = defineEmits<{
     (e: 'update:model', payload: any): void;
 }>();
-watchEffect(() => {
-    if (props.model) emits('update:model', props.model);
-});
+
+/**更新表单数据对象 */
+const updateModel = (val: any, column: FormColumn, eventName: 'input' | 'change') => {
+    const formData = { ...props.model };
+    formData[column.prop] = val;
+    emits('update:model', formData);
+    if (eventName === 'input') {
+        !!column.methods?.onInput && column.methods.onInput(val);
+    }
+    if (eventName === 'change') {
+        !!column.methods?.onChange && column.methods.onChange(val);
+    }
+};
+
 /**校验整个表单 */
 const validate = async () => {
     if (!ruleForm.value) return;
@@ -160,11 +171,11 @@ defineExpose({
                             <el-input
                                 placeholder="请输入"
                                 v-bind="getBindAttrs(column, 'el')"
-                                v-model="model![column?.prop]"
+                                :model-value="model[column.prop]"
+                                @input="(val: string) => updateModel(val, column, 'input')"
                                 @blur="column.methods?.onBlur"
                                 @focus="column.methods?.onFocus"
                                 @change="column.methods?.onChange"
-                                @input="column.methods?.onInput"
                                 @clear="column.methods?.onClear"
                             />
                         </template>
@@ -177,8 +188,8 @@ defineExpose({
                                 :clearable="true"
                                 :filterable="true"
                                 v-bind="getBindAttrs(column, 'el')"
-                                v-model="model![column?.prop]"
-                                @change="column.methods?.onChange"
+                                :model-value="model[column.prop]"
+                                @change="(val: string) => updateModel(val, column, 'change')"
                                 @visible-change="column.methods?.visibleChange"
                                 @remove-tag="column.methods?.removeTag"
                                 @clear="column.methods?.onClear"
@@ -194,8 +205,8 @@ defineExpose({
                                 :collapse-tags-tooltip="true"
                                 :filterable="true"
                                 v-bind="getBindAttrs(column, 'el')"
-                                v-model="model![column?.prop]"
-                                @change="column.methods?.onChange"
+                                :model-value="model[column.prop]"
+                                @change="(val: string) => updateModel(val, column, 'change')"
                                 @visible-change="column.methods?.visibleChange"
                                 @remove-tag="column.methods?.removeTag"
                                 @clear="column.methods?.onClear"
@@ -207,16 +218,16 @@ defineExpose({
                         <template v-if="column.el === 'checkbox'">
                             <el-checkbox
                                 v-bind="getBindAttrs(column, 'el')"
-                                v-model="model![column?.prop]"
-                                @change="column.methods?.onChange"
+                                :model-value="model[column.prop]"
+                                @change="(val: string) => updateModel(val, column, 'change')"
                             />
                         </template>
                         <!-- 复选框group -->
                         <template v-if="column.el === 'checkboxGroup'">
                             <el-checkbox-group
                                 v-bind="getBindAttrs(column, 'el')"
-                                v-model="model![column?.prop]"
-                                @change="column.methods?.onChange"
+                                :model-value="model[column.prop]"
+                                @change="(val: string) => updateModel(val, column, 'change')"
                             >
                                 <el-checkbox
                                     v-for="item in column.options"
@@ -230,8 +241,8 @@ defineExpose({
                         <template v-if="column.el === 'radioGroup'">
                             <el-radio-group
                                 v-bind="getBindAttrs(column, 'el')"
-                                v-model="model![column?.prop]"
-                                @change="column.methods?.onChange"
+                                :model-value="model[column.prop]"
+                                @change="(val: string) => updateModel(val, column, 'change')"
                             >
                                 <el-radio
                                     v-for="radio in column.options"
@@ -247,8 +258,8 @@ defineExpose({
                             <el-date-picker
                                 placeholder="请选择"
                                 v-bind="getBindAttrs(column, 'el')"
-                                v-model="model![column?.prop]"
-                                @change="column.methods?.onChange"
+                                :model-value="model[column.prop]"
+                                @change="(val: string) => updateModel(val, column, 'change')"
                                 @blur="column.methods?.onBlur"
                                 @focus="column.methods?.onFocus"
                                 @calendar-change="column.methods?.calendarChange"
@@ -259,8 +270,8 @@ defineExpose({
                         <template v-if="column.el === 'switch'">
                             <el-switch
                                 v-bind="getBindAttrs(column, 'el')"
-                                v-model="model![column?.prop]"
-                                @change="column.methods?.onChange"
+                                :model-value="model[column.prop]"
+                                @change="(val: string) => updateModel(val, column, 'change')"
                             />
                         </template>
                         <!-- 插槽没有统计到的或者有特殊需求的表单元素 -->
