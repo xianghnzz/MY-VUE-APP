@@ -154,8 +154,6 @@ const handleReset = () => {
         </div>
         <div class="page-list__body">
             <AppTable
-                :width="600"
-                :height="600"
                 :data="[]"
                 :columns="[]"
             ></AppTable>
