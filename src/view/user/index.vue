@@ -130,7 +130,7 @@ const handleReset = () => {
     <div class="page-list">
         <div class="page-list__header">
             <AppForm
-                v-model:model="model"
+                v-model="model"
                 :columns="columns"
                 searchForm
                 ref="ruleFormRef"

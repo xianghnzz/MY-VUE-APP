@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { FormInstance } from 'element-plus';
+import { FormInstance, FormItemProps } from 'element-plus';
 /** 表单元素及formItem属性合集*/
-interface FormColumn {
+interface FormColumn extends FormItemProps {
     span?: number; // 栅格布局,表单元素占几行
     el?: 'input' | 'number' | 'select' | 'checkbox' | 'checkboxGroup' | 'radioGroup' | 'switch' | 'date' | 'text'; // 自定义的组件属性，用来渲染对应的表单元素
     slot?: boolean; // 使用插槽
@@ -20,14 +20,14 @@ interface FormColumn {
         calendarChange?: (value: Date[]) => void;
         panelChange?: (date: any, model: any, view: any) => void;
     };
-    // Form Item Attributes && input,select等表单元素属性, 具体参照element-plus官方文档
+    // input,select等表单元素属性, 具体参照element-plus官方文档
     [key: string]: any;
 }
 interface Form {
+    // 表单数据对象
+    modelValue: object;
     // 单元设置
     columns: Array<FormColumn>;
-    // 表单数据对象
-    model: any;
     // 栅格布列之前的间隔
     gutter?: number;
     // 组件是否使用搜索栏样式和布局
@@ -45,7 +45,6 @@ const { proxy } = getCurrentInstance() as any;
 const ruleForm = ref<FormInstance | null>(null);
 /**获取元素需要绑定的属性对象 */
 const formAttrs = [
-    'model',
     'rules',
     'inline',
     'labelPosition',
@@ -92,19 +91,28 @@ const getBindAttrs = computed(() => {
     };
 });
 const emits = defineEmits<{
-    (e: 'update:model', payload: any): void;
+    (e: 'update:modelValue', payload: any): void;
 }>();
 
 /**更新表单数据对象 */
-const updateModel = (val: any, column: FormColumn, eventName: 'input' | 'change') => {
-    const formData = { ...props.model };
-    formData[column.prop] = val;
-    emits('update:model', formData);
+const updateModel = (val: any, column: FormColumn, eventName: 'input' | 'change' | 'blur') => {
+    const formData = { ...props.modelValue };
+    if (column.prop) {
+        if (eventName === 'blur') {
+            formData[`${column.prop}`] = val.target.value.trim();
+        } else {
+            formData[`${column.prop}`] = val;
+        }
+    }
+    emits('update:modelValue', formData);
     if (eventName === 'input') {
         !!column.methods?.onInput && column.methods.onInput(val);
     }
     if (eventName === 'change') {
         !!column.methods?.onChange && column.methods.onChange(val);
+    }
+    if (eventName === 'blur') {
+        !!column.methods?.onBlur && column.methods.onBlur(val);
     }
 };
 
@@ -152,7 +160,7 @@ defineExpose({
 <template>
     <div :class="{ 'c-form': true, searchForm: searchForm }">
         <el-form
-            :model="model"
+            :model="modelValue"
             v-bind="getBindAttrs()"
             ref="ruleForm"
         >
@@ -171,9 +179,9 @@ defineExpose({
                             <el-input
                                 placeholder="请输入"
                                 v-bind="getBindAttrs(column, 'el')"
-                                :model-value="model[column.prop]"
+                                :model-value="modelValue[column.prop]"
                                 @input="(val: string) => updateModel(val, column, 'input')"
-                                @blur="column.methods?.onBlur"
+                                @blur="(event: FocusEvent) => updateModel(event, column, 'blur')"
                                 @focus="column.methods?.onFocus"
                                 @change="column.methods?.onChange"
                                 @clear="column.methods?.onClear"
@@ -183,12 +191,12 @@ defineExpose({
                         <template v-if="column.el === 'select'">
                             <!-- 单选 -->
                             <el-select-v2
-                                v-if="!column.elAttrs?.multiple"
+                                v-if="!column.multiple"
                                 placeholder="请选择"
                                 :clearable="true"
                                 :filterable="true"
                                 v-bind="getBindAttrs(column, 'el')"
-                                :model-value="model[column.prop]"
+                                :model-value="modelValue[column.prop]"
                                 @change="(val: string) => updateModel(val, column, 'change')"
                                 @visible-change="column.methods?.visibleChange"
                                 @remove-tag="column.methods?.removeTag"
@@ -205,7 +213,7 @@ defineExpose({
                                 :collapse-tags-tooltip="true"
                                 :filterable="true"
                                 v-bind="getBindAttrs(column, 'el')"
-                                :model-value="model[column.prop]"
+                                :model-value="modelValue[column.prop]"
                                 @change="(val: string) => updateModel(val, column, 'change')"
                                 @visible-change="column.methods?.visibleChange"
                                 @remove-tag="column.methods?.removeTag"
@@ -218,7 +226,7 @@ defineExpose({
                         <template v-if="column.el === 'checkbox'">
                             <el-checkbox
                                 v-bind="getBindAttrs(column, 'el')"
-                                :model-value="model[column.prop]"
+                                :model-value="modelValue[column.prop]"
                                 @change="(val: string) => updateModel(val, column, 'change')"
                             />
                         </template>
@@ -226,7 +234,7 @@ defineExpose({
                         <template v-if="column.el === 'checkboxGroup'">
                             <el-checkbox-group
                                 v-bind="getBindAttrs(column, 'el')"
-                                :model-value="model[column.prop]"
+                                :model-value="modelValue[column.prop]"
                                 @change="(val: string) => updateModel(val, column, 'change')"
                             >
                                 <el-checkbox
@@ -241,7 +249,7 @@ defineExpose({
                         <template v-if="column.el === 'radioGroup'">
                             <el-radio-group
                                 v-bind="getBindAttrs(column, 'el')"
-                                :model-value="model[column.prop]"
+                                :model-value="modelValue[column.prop]"
                                 @change="(val: string) => updateModel(val, column, 'change')"
                             >
                                 <el-radio
@@ -258,7 +266,7 @@ defineExpose({
                             <el-date-picker
                                 placeholder="请选择"
                                 v-bind="getBindAttrs(column, 'el')"
-                                :model-value="model[column.prop]"
+                                :model-value="modelValue[column.prop]"
                                 @change="(val: string) => updateModel(val, column, 'change')"
                                 @blur="column.methods?.onBlur"
                                 @focus="column.methods?.onFocus"
@@ -270,7 +278,7 @@ defineExpose({
                         <template v-if="column.el === 'switch'">
                             <el-switch
                                 v-bind="getBindAttrs(column, 'el')"
-                                :model-value="model[column.prop]"
+                                :model-value="modelValue[column.prop]"
                                 @change="(val: string) => updateModel(val, column, 'change')"
                             />
                         </template>
