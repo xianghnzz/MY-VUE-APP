@@ -7,7 +7,6 @@ const model = ref<any>({
 });
 const columns = reactive<FormColumn[]>([
     {
-        prop: 'username',
         label: '用户名',
         el: 'input',
         labelWidth: '0.5rem',

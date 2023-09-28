@@ -96,13 +96,12 @@ const emits = defineEmits<{
 
 /**更新表单数据对象 */
 const updateModel = (val: any, column: FormColumn, eventName: 'input' | 'change' | 'blur') => {
+    if (!column.prop) return;
     const formData = { ...props.modelValue };
-    if (column.prop) {
-        if (eventName === 'blur') {
-            formData[column.prop] = val.target.value.trim();
-        } else {
-            formData[column.prop] = val;
-        }
+    if (eventName === 'blur') {
+        formData[column.prop] = val.target.value.trim();
+    } else {
+        formData[column.prop] = val;
     }
     emits('update:modelValue', formData);
     if (eventName === 'input') {
