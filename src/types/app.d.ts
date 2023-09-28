@@ -18,16 +18,16 @@ declare global {
             visibleChange?: (value: boolean) => void;
             removeTag?: (value: any) => void;
         };
-        // Form Item Attributes && input,select等表单元素属性, 具体参照element-plus官方文档
+        // formItem 属性及 input,select等表单元素属性, 具体参照element-plus官方文档
         [key: string]: any;
     }
     interface Form {
+        // 表单数据对象
+        modelValue: { [key: string]: any };
         // 单元设置
         columns: Array<FormColumn>;
         // 栅格布列之前的间隔
         gutter?: number;
-        // 表单数据对象
-        model: any;
         // Form Attributes 具体参考element-plus官方文档
         [key: string]: any;
     }

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { FormInstance, FormItemProps } from 'element-plus';
+import { FormInstance } from 'element-plus';
 /** 表单元素及formItem属性合集*/
-interface FormColumn extends FormItemProps {
+interface FormColumn {
     span?: number; // 栅格布局,表单元素占几行
     el?: 'input' | 'number' | 'select' | 'checkbox' | 'checkboxGroup' | 'radioGroup' | 'switch' | 'date' | 'text'; // 自定义的组件属性，用来渲染对应的表单元素
     slot?: boolean; // 使用插槽
@@ -20,12 +20,12 @@ interface FormColumn extends FormItemProps {
         calendarChange?: (value: Date[]) => void;
         panelChange?: (date: any, model: any, view: any) => void;
     };
-    // input,select等表单元素属性, 具体参照element-plus官方文档
+    // formItem属性及其input,select等表单元素属性, 具体参照element-plus官方文档
     [key: string]: any;
 }
 interface Form {
     // 表单数据对象
-    modelValue: object;
+    modelValue: { [key: string]: any };
     // 单元设置
     columns: Array<FormColumn>;
     // 栅格布列之前的间隔
@@ -38,7 +38,7 @@ interface Form {
 /**组件属性 */
 const props = withDefaults(defineProps<Form>(), {
     columns: () => [],
-    model: () => ({}),
+    modelValue: () => ({}),
     gutter: () => 0
 });
 const { proxy } = getCurrentInstance() as any;
@@ -99,9 +99,9 @@ const updateModel = (val: any, column: FormColumn, eventName: 'input' | 'change'
     const formData = { ...props.modelValue };
     if (column.prop) {
         if (eventName === 'blur') {
-            formData[`${column.prop}`] = val.target.value.trim();
+            formData[column.prop] = val.target.value.trim();
         } else {
-            formData[`${column.prop}`] = val;
+            formData[column.prop] = val;
         }
     }
     emits('update:modelValue', formData);
